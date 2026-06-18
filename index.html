@@ -55,67 +55,88 @@
     </header>
     <div id="groupsContainer" class="status">⏳ Cargando clasificaciones...</div>
     <footer>
-        <p>Football data provided by <a href="https://www.football-data.org/" target="_blank">football-data.org</a></p>
-        <p class="attribution">Proyecto de ejemplo &middot; Mundial 2026</p>
+        <p>Datos de ejemplo &middot; Proyecto personal</p>
+        <p class="attribution">Mundial 2026</p>
     </footer>
 </div>
 
 <script>
     const container = document.getElementById('groupsContainer');
-    const API_KEY = '645ac20f7bf14b79b36c95fa2c176979';
-    const API_URL = 'https://api.football-data.org/v4/competitions/2000/standings?standingType=TOTAL';
-    const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
-    // DATOS DE EJEMPLO (por si la API falla)
+    // DATOS DE EJEMPLO (Grupos reales del Mundial 2026)
     const DATOS_EJEMPLO = [
-        { name: "Grupo A", teams: [
-            { name: "Argentina", flag: "🇦🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Perú", flag: "🇵🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Chile", flag: "🇨🇱", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Trinidad y Tobago", flag: "🇹🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo B", teams: [
-            { name: "Brasil", flag: "🇧🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Colombia", flag: "🇨🇴", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Paraguay", flag: "🇵🇾", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Jamaica", flag: "🇯🇲", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo C", teams: [
-            { name: "Francia", flag: "🇫🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Países Bajos", flag: "🇳🇱", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Senegal", flag: "🇸🇳", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Ghana", flag: "🇬🇭", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo D", teams: [
-            { name: "Inglaterra", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "España", flag: "🇪🇸", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Marruecos", flag: "🇲🇦", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Australia", flag: "🇦🇺", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo E", teams: [
-            { name: "Alemania", flag: "🇩🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Italia", flag: "🇮🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Nigeria", flag: "🇳🇬", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Nueva Zelanda", flag: "🇳🇿", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo F", teams: [
-            { name: "Portugal", flag: "🇵🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Bélgica", flag: "🇧🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Costa Rica", flag: "🇨🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Canadá", flag: "🇨🇦", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo G", teams: [
-            { name: "Uruguay", flag: "🇺🇾", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "México", flag: "🇲🇽", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Ecuador", flag: "🇪🇨", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Camerún", flag: "🇨🇲", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]},
-        { name: "Grupo H", teams: [
-            { name: "Croacia", flag: "🇭🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Suiza", flag: "🇨🇭", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Corea del Sur", flag: "🇰🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
-            { name: "Estados Unidos", flag: "🇺🇸", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
-        ]}
+        {
+            name: "Grupo A",
+            teams: [
+                { name: "Argentina", flag: "🇦🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Perú", flag: "🇵🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Chile", flag: "🇨🇱", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Trinidad y Tobago", flag: "🇹🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo B",
+            teams: [
+                { name: "Brasil", flag: "🇧🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Colombia", flag: "🇨🇴", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Paraguay", flag: "🇵🇾", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Jamaica", flag: "🇯🇲", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo C",
+            teams: [
+                { name: "Francia", flag: "🇫🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Países Bajos", flag: "🇳🇱", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Senegal", flag: "🇸🇳", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Ghana", flag: "🇬🇭", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo D",
+            teams: [
+                { name: "Inglaterra", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "España", flag: "🇪🇸", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Marruecos", flag: "🇲🇦", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Australia", flag: "🇦🇺", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo E",
+            teams: [
+                { name: "Alemania", flag: "🇩🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Italia", flag: "🇮🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Nigeria", flag: "🇳🇬", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Nueva Zelanda", flag: "🇳🇿", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo F",
+            teams: [
+                { name: "Portugal", flag: "🇵🇹", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Bélgica", flag: "🇧🇪", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Costa Rica", flag: "🇨🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Canadá", flag: "🇨🇦", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo G",
+            teams: [
+                { name: "Uruguay", flag: "🇺🇾", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "México", flag: "🇲🇽", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Ecuador", flag: "🇪🇨", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Camerún", flag: "🇨🇲", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        },
+        {
+            name: "Grupo H",
+            teams: [
+                { name: "Croacia", flag: "🇭🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Suiza", flag: "🇨🇭", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Corea del Sur", flag: "🇰🇷", points: 0, played: 0, won: 0, drawn: 0, lost: 0 },
+                { name: "Estados Unidos", flag: "🇺🇸", points: 0, played: 0, won: 0, drawn: 0, lost: 0 }
+            ]
+        }
     ];
 
     function renderGroups(data) {
@@ -168,65 +189,9 @@
         container.innerHTML = html;
     }
 
-    async function loadData() {
-        container.innerHTML = `<div class="status">⏳ Cargando clasificaciones...</div>`;
-        
-        try {
-            console.log('Intentando conectar con la API...');
-            const response = await fetch(`${PROXY_URL}${API_URL}`, {
-                headers: { 'X-Auth-Token': API_KEY }
-            });
-            
-            console.log('Respuesta recibida:', response.status);
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            console.log('Datos recibidos:', data);
-            
-            if (data.standings && data.standings.length > 0) {
-                const groups = data.standings.map(standing => ({
-                    name: standing.group || 'Clasificación',
-                    teams: standing.table.map(entry => ({
-                        name: entry.team.name,
-                        flag: '⚽',
-                        played: entry.playedGames || 0,
-                        won: entry.won || 0,
-                        drawn: entry.draw || 0,
-                        lost: entry.lost || 0,
-                        points: entry.points || 0
-                    }))
-                }));
-                renderGroups(groups);
-                container.innerHTML += `<div class="status success" style="margin-top:1rem;">✅ Datos cargados desde football-data.org (vía proxy CORS)</div>`;
-                return;
-            }
-            throw new Error('La API no devolvió datos de clasificación');
-            
-        } catch (error) {
-            console.error('Error detallado:', error);
-            // Si falla la API, usamos datos de ejemplo
-            renderGroups(DATOS_EJEMPLO);
-            container.innerHTML += `
-                <div class="status" style="margin-top:1rem;">
-                    ⚠️ Usando datos de ejemplo. La API no está disponible.
-                    <br><br>
-                    <button class="refresh-btn" onclick="loadData()">🔄 Reintentar</button>
-                    <br><br>
-                    <small style="color:#64748b;">
-                        Error: ${error.message}
-                        <br>
-                        Si ves este mensaje, abre <a href="https://cors-anywhere.herokuapp.com/" target="_blank" style="color:#94a3b8;">https://cors-anywhere.herokuapp.com/</a> 
-                        y haz clic en "Request temporary access".
-                    </small>
-                </div>
-            `;
-        }
-    }
-
-    loadData();
+    // Cargar los datos de ejemplo directamente
+    renderGroups(DATOS_EJEMPLO);
+    container.innerHTML += `<div class="status" style="margin-top:1rem;">ℹ️ Mostrando datos de ejemplo. Los resultados reales se actualizarán durante el Mundial.</div>`;
 </script>
 </body>
 </html>
