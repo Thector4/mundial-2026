@@ -1,0 +1,22 @@
+# Archivos de configuración con claves
+config.js
+.env
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+.log
+
+# Dependencias de Node (si usas)
+node_modules
+package-lock.json
+
+# Archivos de editor
+.vscode
+.idea
+.swp
+.swo
+
+# Archivos de construcción (si usas)
+dist
+build
