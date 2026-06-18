@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏆 Mundial 2026 - Prueba Local</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        /* Aquí va todo tu CSS (el mismo que tienes) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0b1a2e; color: #f0f4f8; min-height: 100vh; padding: 2rem 1.5rem; display: flex; justify-content: center; }
+        .container { max-width: 1400px; width: 100%; }
+        header { text-align: center; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.08); }
+        header h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        header p { font-size: 1.2rem; color: #94a3b8; margin-top: 0.5rem; font-weight: 400; }
+        .badge { display: inline-block; background: rgba(251, 191, 36, 0.15); color: #fbbf24; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; border: 1px solid rgba(251, 191, 36, 0.2); }
+        .status { text-align: center; padding: 2rem; font-size: 1.2rem; color: #94a3b8; }
+        .status.success { color: #4ade80; }
+        .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .group-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(4px); border-radius: 24px; padding: 1.8rem 1.5rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .group-card:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.8); border-color: rgba(251, 191, 36, 0.15); }
+        .group-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .group-name { font-size: 1.7rem; font-weight: 700; color: #facc15; letter-spacing: -0.01em; }
+        .group-flag { font-size: 1.8rem; opacity: 0.6; }
+        .table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .table thead th { text-align: left; padding: 0.5rem 0.3rem; color: #94a3b8; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .table tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: background 0.15s; }
+        .table tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+        .table tbody td { padding: 0.7rem 0.3rem; vertical-align: middle; }
+        .pos { font-weight: 700; width: 30px; text-align: center; color: #cbd5e1; }
+        .pos-1 { color: #fbbf24; }
+        .pos-2 { color: #94a3b8; }
+        .pos-3 { color: #cd7f32; }
+        .team-name { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .team-emoji { font-size: 1.5rem; line-height: 1; }
+        .stats { text-align: center; font-weight: 500; color: #e2e8f0; }
+        .pts { font-weight: 700; color: #facc15; }
+        footer { margin-top: 4rem; text-align: center; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 2rem; }
+        footer a { color: #94a3b8; text-decoration: none; }
+        footer a:hover { color: #facc15; }
+        .attribution { color: #64748b; font-size: 0.75rem; margin-top: 0.5rem; }
+        @media (max-width: 600px) { header h1 { font-size: 2.2rem; } .groups-grid { grid-template-columns: 1fr; } .group-card { padding: 1.2rem; } .table { font-size: 0.8rem; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🏆 Mundial 2026</h1>
+        <p>Clasificación de los grupos</p>
+        <span class="badge">⚡ Datos de ejemplo (local)</span>
+    </header>
+    <div id="groupsContainer"></div>
+    <footer>
+        <p>Datos de ejemplo &middot; Prueba local</p>
+        <p class="attribution">Proyecto de ejemplo &middot; Mundial 2026</p>
+    </footer>
+</div>
+
+<script>
+    const container = document.getElementById('groupsContainer');
+
+    // --- MAPA DE PAÍSES A EMOJIS DE BANDERA ---
+    const FLAG_MAP = {
+        'Argentina': '🇦🇷', 'Perú': '🇵🇪', 'Chile': '🇨🇱', 'Trinidad y Tobago': '🇹🇹',
+        'Brasil': '🇧🇷', 'Colombia': '🇨🇴', 'Paraguay': '🇵🇾', 'Jamaica': '🇯🇲',
+        'Francia': '🇫🇷', 'Países Bajos': '🇳🇱', 'Holanda': '🇳🇱', 'Senegal': '🇸🇳',
+        'Ghana': '🇬🇭', 'Inglaterra': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'España': '🇪🇸', 'Marruecos': '🇲🇦',
+        'Australia': '🇦🇺', 'Alemania': '🇩🇪', 'Italia': '🇮🇹', 'Nigeria': '🇳🇬',
+        'Nueva Zelanda': '🇳🇿', 'Portugal': '🇵🇹', 'Bélgica': '🇧🇪', 'Costa Rica': '🇨🇷',
+        'Canadá': '🇨🇦', 'Uruguay': '🇺🇾', 'México': '🇲🇽', 'Ecuador': '🇪🇨',
+        'Camerún': '🇨🇲', 'Croacia': '🇭🇷', 'Suiza': '🇨🇭', 'Corea del Sur': '🇰🇷',
+        'Estados Unidos': '🇺🇸', 'EEUU': '🇺🇸', 'USA': '🇺🇸'
+    };
+
+    function getFlag(name) {
+        if (!name) return '⚽';
+        if (FLAG_MAP[name]) return FLAG_MAP[name];
+        const lower = name.toLowerCase();
+        for (const [key, flag] of Object.entries(FLAG_MAP)) {
+            if (key.toLowerCase().includes(lower) || lower.includes(key.toLowerCase())) {
+                return flag;
+            }
+        }
+        return '⚽';
+    }
+
+    // --- DATOS DE EJEMPLO ---
+    const DATA = [
+        { name: "Grupo A", teams: [
+            { name: "Argentina", points: 9, played: 3, won: 3, drawn: 0, lost: 0 },
+            { name: "Perú", points: 4, played: 3, won: 1, drawn: 1, lost: 1 },
+            { name: "Chile", points: 2, played: 3, won: 0, drawn: 2, lost: 1 },
+            { name: "Trinidad y Tobago", points: 1, played: 3, won: 0, drawn: 1, lost: 2 }
+        ]},
+        { name: "Grupo B", teams: [
+            { name: "Brasil", points: 7, played: 3, won: 2, drawn: 1, lost: 0 },
+            { name: "Colombia", points: 5, played: 3, won: 1, drawn: 2, lost: 0 },
+            { name: "Paraguay", points: 3, played: 3, won: 1, drawn: 0, lost: 2 },
+            { name: "Jamaica", points: 1, played: 3, won: 0, drawn: 1, lost: 2 }
+        ]}
+        // ... puedes añadir más grupos si quieres
+    ];
+
+    function renderGroups(data) {
+        let html = `<div class="groups-grid">`;
+        data.forEach(group => {
+            html += `
+                <div class="group-card">
+                    <div class="group-header">
+                        <span class="group-name">${group.name}</span>
+                        <span class="group-flag">🏁</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th></tr>
+                        </thead>
+                        <tbody>
+            `;
+            const sorted = [...group.teams].sort((a, b) => b.points - a.points);
+            sorted.forEach((team, index) => {
+                const pos = index + 1;
+                let cls = 'pos';
+                if (pos === 1) cls += ' pos-1';
+                else if (pos === 2) cls += ' pos-2';
+                else if (pos === 3) cls += ' pos-3';
+                html += `
+                    <tr>
+                        <td class="${cls}">${pos}</td>
+                        <td class="team-name">
+                            <span class="team-emoji">${getFlag(team.name)}</span>
+                            ${team.name}
+                        </td>
+                        <td class="stats">${team.played}</td>
+                        <td class="stats">${team.won}</td>
+                        <td class="stats">${team.drawn}</td>
+                        <td class="stats">${team.lost}</td>
+                        <td class="stats pts">${team.points}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table></div>`;
+        });
+        html += `</div>`;
+        container.innerHTML = html;
+    }
+
+    renderGroups(DATA);
+</script>
+</body>
+</html>

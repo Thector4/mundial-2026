@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🏆 Mundial 2026 - Grupos y Clasificaciones</title>
+    <!-- Librería de banderas SVG -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.3.2/css/flag-icons.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
+        /* ... (todo tu CSS existente) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #0b1a2e; color: #f0f4f8; min-height: 100vh; padding: 2rem 1.5rem; display: flex; justify-content: center; }
         .container { max-width: 1400px; width: 100%; }
@@ -34,7 +37,8 @@
         .pos-2 { color: #94a3b8; }
         .pos-3 { color: #cd7f32; }
         .team-name { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-        .team-emoji { font-size: 1.2rem; }
+        .team-flag { display: inline-flex; align-items: center; width: 24px; height: 18px; }
+        .team-flag .fi { font-size: 1.4rem; line-height: 1; }
         .stats { text-align: center; font-weight: 500; color: #e2e8f0; }
         .pts { font-weight: 700; color: #facc15; }
         footer { margin-top: 4rem; text-align: center; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 2rem; }
@@ -63,6 +67,46 @@
 
 <script>
     const container = document.getElementById('groupsContainer');
+
+    // --- MAPA DE PAÍSES A CÓDIGOS DE BANDERA (ISO) ---
+    const FLAG_MAP = {
+        'Argentina': 'ar', 'Perú': 'pe', 'Chile': 'cl', 'Trinidad y Tobago': 'tt',
+        'Brasil': 'br', 'Colombia': 'co', 'Paraguay': 'py', 'Jamaica': 'jm',
+        'Francia': 'fr', 'Países Bajos': 'nl', 'Holanda': 'nl', 'Senegal': 'sn',
+        'Ghana': 'gh', 'Inglaterra': 'gb-eng', 'España': 'es', 'Marruecos': 'ma',
+        'Australia': 'au', 'Alemania': 'de', 'Italia': 'it', 'Nigeria': 'ng',
+        'Nueva Zelanda': 'nz', 'Portugal': 'pt', 'Bélgica': 'be', 'Costa Rica': 'cr',
+        'Canadá': 'ca', 'Uruguay': 'uy', 'México': 'mx', 'Ecuador': 'ec',
+        'Camerún': 'cm', 'Croacia': 'hr', 'Suiza': 'ch', 'Corea del Sur': 'kr',
+        'Estados Unidos': 'us', 'EEUU': 'us', 'USA': 'us', 'Escocia': 'gb-sct',
+        'Gales': 'gb-wls', 'Irlanda': 'ie', 'Dinamarca': 'dk', 'Suecia': 'se',
+        'Noruega': 'no', 'Polonia': 'pl', 'Ucrania': 'ua', 'Rusia': 'ru',
+        'Turquía': 'tr', 'Grecia': 'gr', 'Egipto': 'eg', 'Argelia': 'dz',
+        'Túnez': 'tn', 'Sudáfrica': 'za', 'Costa de Marfil': 'ci', 'Japón': 'jp',
+        'Arabia Saudita': 'sa', 'Irán': 'ir', 'Catar': 'qa', 'Emiratos Árabes Unidos': 'ae'
+    };
+
+    function getFlag(countryName) {
+        if (!countryName) return '<span class="fi"></span>';
+        const code = FLAG_MAP[countryName];
+        if (code) {
+            if (code.includes('gb-')) {
+                return `<span class="fi fi-${code} fis"></span>`;
+            }
+            return `<span class="fi fi-${code}"></span>`;
+        }
+        // Si no está en el mapa, intentar buscar por coincidencia parcial
+        const lower = countryName.toLowerCase();
+        for (const [key, codeVal] of Object.entries(FLAG_MAP)) {
+            if (key.toLowerCase().includes(lower) || lower.includes(key.toLowerCase())) {
+                if (codeVal.includes('gb-')) {
+                    return `<span class="fi fi-${codeVal} fis"></span>`;
+                }
+                return `<span class="fi fi-${codeVal}"></span>`;
+            }
+        }
+        return '<span class="fi"></span>';
+    }
 
     function renderGroups(data) {
         if (!data || data.length === 0) {
@@ -93,11 +137,12 @@
                 if (position === 1) posClass += ' pos-1';
                 else if (position === 2) posClass += ' pos-2';
                 else if (position === 3) posClass += ' pos-3';
+                
                 html += `
                     <tr>
                         <td class="${posClass}">${position}</td>
                         <td class="team-name">
-                            <span class="team-emoji">${team.flag || '⚽'}</span>
+                            <span class="team-flag">${getFlag(team.name)}</span>
                             ${team.name || 'Sin nombre'}
                         </td>
                         <td class="stats">${team.played || 0}</td>
@@ -149,7 +194,6 @@
                     name: standing.group || 'Clasificación',
                     teams: standing.table.map(entry => ({
                         name: entry.team.name,
-                        flag: '⚽',
                         played: entry.playedGames || 0,
                         won: entry.won || 0,
                         drawn: entry.draw || 0,
@@ -169,7 +213,6 @@
         }
     }
 
-    // Cargar datos al iniciar
     loadData();
 </script>
 </body>
