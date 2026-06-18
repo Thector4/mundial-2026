@@ -105,7 +105,7 @@ function getFlag(countryName) {
 // ========================================== //
 function renderGroups(data) {
     if (!data || data.length === 0) {
-        container.innerHTML = `<div class="status">⚠️ No se encontraron datos de grupos.</div>`;
+        container.innerHTML = `<div class="status">No se encontraron datos de grupos.</div>`;
         return;
     }
 
@@ -117,7 +117,6 @@ function renderGroups(data) {
             <div class="group-card">
                 <div class="group-header">
                     <span class="group-name">${groupName}</span>
-                    <span class="group-flag">🏁</span>
                 </div>
                 <table class="table">
                     <thead>
@@ -152,7 +151,6 @@ function renderGroups(data) {
     });
     html += `</div>`;
     container.innerHTML = html;
-    container.innerHTML += `<div class="status success" style="margin-top:1rem;">✅ Datos cargados correctamente</div>`;
 }
 
 // ========================================== //
@@ -161,10 +159,10 @@ function renderGroups(data) {
 function showError(message) {
     container.innerHTML = `
         <div class="error-box">
-            <div class="status error">❌ Error al cargar los datos</div>
+            <div class="status error">Error al cargar los datos</div>
             <p style="text-align:center;color:#94a3b8;margin:1rem 0;">${message}</p>
             <div style="text-align:center;">
-                <button class="refresh-btn" onclick="loadData()">🔄 Reintentar</button>
+                <button class="refresh-btn" onclick="loadData()">Reintentar</button>
             </div>
         </div>
     `;
@@ -174,7 +172,7 @@ function showError(message) {
 // FUNCIÓN PRINCIPAL PARA CARGAR DATOS        //
 // ========================================== //
 async function loadData() {
-    container.innerHTML = `<div class="status">⏳ Cargando clasificaciones...</div>`;
+    container.innerHTML = `<div class="status">Cargando clasificaciones...</div>`;
     
     try {
         const response = await fetch('/.netlify/functions/clasificacion');
