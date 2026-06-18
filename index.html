@@ -4,272 +4,90 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🏆 Mundial 2026 - Grupos y Clasificaciones</title>
+    
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0b1a2e; color: #f0f4f8; min-height: 100vh; padding: 2rem 1.5rem; display: flex; justify-content: center; }
-        .container { max-width: 1400px; width: 100%; }
-        header { text-align: center; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 2px solid rgba(255, 255, 255, 0.08); }
-        header h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        header p { font-size: 1.2rem; color: #94a3b8; margin-top: 0.5rem; font-weight: 400; }
-        .badge { display: inline-block; background: rgba(251, 191, 36, 0.15); color: #fbbf24; padding: 0.4rem 1.2rem; border-radius: 40px; font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; border: 1px solid rgba(251, 191, 36, 0.2); }
-        .status { text-align: center; padding: 2rem; font-size: 1.2rem; color: #94a3b8; }
-        .status.error { color: #f87171; }
-        .status.success { color: #4ade80; }
-        .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-        .group-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(4px); border-radius: 24px; padding: 1.8rem 1.5rem 1.5rem; border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .group-card:hover { transform: translateY(-4px); box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.8); border-color: rgba(251, 191, 36, 0.15); }
-        .group-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-        .group-name { font-size: 1.7rem; font-weight: 700; color: #facc15; letter-spacing: -0.01em; }
-        .group-flag { font-size: 1.8rem; opacity: 0.6; }
-        .table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        .table thead th { text-align: left; padding: 0.5rem 0.3rem; color: #94a3b8; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-        .table tbody tr { border-bottom: 1px solid rgba(255, 255, 255, 0.03); transition: background 0.15s; }
-        .table tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
-        .table tbody td { padding: 0.7rem 0.3rem; vertical-align: middle; }
-        .pos { font-weight: 700; width: 30px; text-align: center; color: #cbd5e1; }
-        .pos-1 { color: #fbbf24; }
-        .pos-2 { color: #94a3b8; }
-        .pos-3 { color: #cd7f32; }
-        .team-name { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-        .team-flag-img { width: 24px; height: 18px; object-fit: cover; border-radius: 2px; display: inline-block; }
-        .stats { text-align: center; font-weight: 500; color: #e2e8f0; }
-        .pts { font-weight: 700; color: #facc15; }
-        footer { margin-top: 4rem; text-align: center; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 2rem; }
-        footer a { color: #94a3b8; text-decoration: none; }
-        footer a:hover { color: #facc15; }
-        .refresh-btn { background: #facc15; color: #0b1a2e; border: none; padding: 0.8rem 2rem; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s; font-size: 1rem; }
-        .refresh-btn:hover { background: #fbbf24; transform: scale(1.05); }
-        .attribution { color: #64748b; font-size: 0.75rem; margin-top: 0.5rem; }
-        .error-box { background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.3); border-radius: 12px; padding: 2rem; max-width: 600px; margin: 0 auto; }
-        @media (max-width: 600px) { header h1 { font-size: 2.2rem; } .groups-grid { grid-template-columns: 1fr; } .group-card { padding: 1.2rem; } .table { font-size: 0.8rem; } }
-    </style>
+    
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>🏆 Mundial 2026</h1>
-        <p>Clasificación de los grupos</p>
-        <span class="badge">⚡ Datos en tiempo real</span>
-    </header>
-    <div id="groupsContainer" class="status">⏳ Cargando clasificaciones...</div>
-    <footer>
-        <p>Datos proporcionados por <a href="https://www.football-data.org/" target="_blank">football-data.org</a></p>
-        <p class="attribution">Proyecto de ejemplo &middot; Mundial 2026</p>
-    </footer>
-</div>
-
-<script>
-    const container = document.getElementById('groupsContainer');
-
-    // --- MAPA DE PAÍSES A URLS DE BANDERAS SVG ---
-    const FLAG_MAP = {
-    // Grupo A
-    'Mexico': 'https://flagcdn.com/mx.svg',
-    'South Korea': 'https://flagcdn.com/kr.svg',
-    'Czechia': 'https://flagcdn.com/cz.svg',
-    'South Africa': 'https://flagcdn.com/za.svg',
-
-    // Grupo B
-    'Switzerland': 'https://flagcdn.com/ch.svg',
-    'Canada': 'https://flagcdn.com/ca.svg',
-    'Bosnia-Herzegovina': 'https://flagcdn.com/ba.svg',
-    'Qatar': 'https://flagcdn.com/qa.svg',
-
-    // Grupo C
-    'Scotland': 'https://flagcdn.com/gb-sct.svg',
-    'Morocco': 'https://flagcdn.com/ma.svg',
-    'Brazil': 'https://flagcdn.com/br.svg',
-    'Haiti': 'https://flagcdn.com/ht.svg',
-
-    // Grupo D
-    'United States': 'https://flagcdn.com/us.svg',
-    'Australia': 'https://flagcdn.com/au.svg',
-    'Turkey': 'https://flagcdn.com/tr.svg',
-    'Paraguay': 'https://flagcdn.com/py.svg',
-
-    // Grupo E
-    'Germany': 'https://flagcdn.com/de.svg',
-    'Ivory Coast': 'https://flagcdn.com/ci.svg',
-    'Ecuador': 'https://flagcdn.com/ec.svg',
-    'Curaçao': 'https://flagcdn.com/cw.svg',
-
-    // Grupo F
-    'Sweden': 'https://flagcdn.com/se.svg',
-    'Japan': 'https://flagcdn.com/jp.svg',
-    'Netherlands': 'https://flagcdn.com/nl.svg',
-    'Tunisia': 'https://flagcdn.com/tn.svg',
-
-    // Grupo G
-    'New Zealand': 'https://flagcdn.com/nz.svg',
-    'Iran': 'https://flagcdn.com/ir.svg',
-    'Belgium': 'https://flagcdn.com/be.svg',
-    'Egypt': 'https://flagcdn.com/eg.svg',
-
-    // Grupo H
-    'Uruguay': 'https://flagcdn.com/uy.svg',
-    'Saudi Arabia': 'https://flagcdn.com/sa.svg',
-    'Spain': 'https://flagcdn.com/es.svg',
-    'Cape Verde Islands': 'https://flagcdn.com/cv.svg',
-
-    // Grupo I
-    'Norway': 'https://flagcdn.com/no.svg',
-    'France': 'https://flagcdn.com/fr.svg',
-    'Senegal': 'https://flagcdn.com/sn.svg',
-    'Iraq': 'https://flagcdn.com/iq.svg',
-
-    // Grupo J
-    'Argentina': 'https://flagcdn.com/ar.svg',
-    'Austria': 'https://flagcdn.com/at.svg',
-    'Jordan': 'https://flagcdn.com/jo.svg',
-    'Algeria': 'https://flagcdn.com/dz.svg',
-
-    // Grupo K
-    'Colombia': 'https://flagcdn.com/co.svg',
-    'Congo DR': 'https://flagcdn.com/cd.svg',
-    'Portugal': 'https://flagcdn.com/pt.svg',
-    'Uzbekistan': 'https://flagcdn.com/uz.svg',
-
-    // Grupo L
-    'England': 'https://flagcdn.com/gb-eng.svg',
-    'Ghana': 'https://flagcdn.com/gh.svg',
-    'Panama': 'https://flagcdn.com/pa.svg',
-    'Croatia': 'https://flagcdn.com/hr.svg',
-};
-
-    function getFlag(countryName) {
-        if (!countryName) return '⚽';
-        const flagUrl = FLAG_MAP[countryName];
-        if (flagUrl) {
-            return `<img src="${flagUrl}" alt="${countryName}" class="team-flag-img" />`;
-        }
+    <div class="container">
+        <header>
+            <h1>🏆 Mundial 2026</h1>
+            <p>Clasificación de los grupos</p>
+            <span class="badge">⚡ Datos en tiempo real</span>
+        </header>
         
-        // Si no está en el mapa, buscar por coincidencia parcial
-        const lower = countryName.toLowerCase();
-        for (const [key, url] of Object.entries(FLAG_MAP)) {
-            if (key.toLowerCase().includes(lower) || lower.includes(key.toLowerCase())) {
-                return `<img src="${url}" alt="${key}" class="team-flag-img" />`;
-            }
-        }
+        <div id="groupsContainer" class="status">⏳ Cargando clasificaciones...</div>
         
-        return '⚽';
-    }
-
-    function renderGroups(data) {
-        if (!data || data.length === 0) {
-            container.innerHTML = `<div class="status">⚠️ No se encontraron datos de grupos.</div>`;
-            return;
-        }
-
-        let html = `<div class="groups-grid">`;
-        data.forEach(group => {
-            const groupName = group.name || 'Grupo';
-            const teams = group.teams || [];
-            html += `
-                <div class="group-card">
-                    <div class="group-header">
-                        <span class="group-name">${groupName}</span>
-                        <span class="group-flag">🏁</span>
+        <!-- SECCIÓN DE VÍDEOS -->
+        <div class="videos-section">
+            <h2>🎬 Vídeos destacados del Mundial</h2>
+            <p class="videos-subtitle">Los mejores momentos, resúmenes y análisis de la competición.</p>
+            <div class="videos-grid">
+                <!-- Tarjeta de vídeo 1 -->
+                <div class="video-card">
+                    <iframe 
+                        src="https://www.youtube.com/embed/hEoXaywnG9A" 
+                        title="ACTUALIDAD del MUNDIAL | Debut desastroso de España, pinchazos de favoritos, sorpresas..."
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-info">
+                        <h3>ACTUALIDAD del MUNDIAL</h3>
+                        <p>Debut desastroso de España, pinchazos de favoritos y grandes sorpresas en la primera jornada.</p>
+                        <span class="video-source">📺 YouTube</span>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th></tr>
-                        </thead>
-                        <tbody>
-            `;
-            const sorted = [...teams].sort((a, b) => b.points - a.points);
-            sorted.forEach((team, index) => {
-                const position = index + 1;
-                let posClass = 'pos';
-                if (position === 1) posClass += ' pos-1';
-                else if (position === 2) posClass += ' pos-2';
-                else if (position === 3) posClass += ' pos-3';
-                
-                html += `
-                    <tr>
-                        <td class="${posClass}">${position}</td>
-                        <td class="team-name">
-                            ${getFlag(team.name)}
-                            ${team.name || 'Sin nombre'}
-                        </td>
-                        <td class="stats">${team.played || 0}</td>
-                        <td class="stats">${team.won || 0}</td>
-                        <td class="stats">${team.drawn || 0}</td>
-                        <td class="stats">${team.lost || 0}</td>
-                        <td class="stats pts">${team.points || 0}</td>
-                    </tr>
-                `;
-            });
-            html += `</tbody></table></div>`;
-        });
-        html += `</div>`;
-        container.innerHTML = html;
-    }
+                </div>
 
-    function showError(message) {
-        container.innerHTML = `
-            <div class="error-box">
-                <div class="status error">❌ Error al cargar los datos</div>
-                <p style="text-align:center;color:#94a3b8;margin:1rem 0;">${message}</p>
-                <div style="text-align:center;">
-                    <button class="refresh-btn" onclick="loadData()">🔄 Reintentar</button>
+                <!-- Tarjeta de vídeo 2 -->
+                <div class="video-card">
+                    <iframe 
+                        src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
+                        title="Título del vídeo 2"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-info">
+                        <h3>Título del vídeo</h3>
+                        <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
+                        <span class="video-source">📺 YouTube</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de vídeo 3 -->
+                <div class="video-card">
+                    <iframe 
+                        src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
+                        title="Título del vídeo 3"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                    </iframe>
+                    <div class="video-info">
+                        <h3>Título del vídeo</h3>
+                        <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
+                        <span class="video-source">📺 YouTube</span>
+                    </div>
                 </div>
             </div>
-        `;
-    }
-
-    async function loadData() {
-        container.innerHTML = `<div class="status">⏳ Cargando clasificaciones...</div>`;
+        </div>
         
-        try {
-            const response = await fetch('/.netlify/functions/clasificacion');
-            
-            if (!response.ok) {
-                throw new Error(`Error ${response.status}: ${response.statusText}`);
-            }
-            
-            const data = await response.json();
-            console.log('Datos recibidos:', data);
-
-            if (data.standings) {
-            data.standings.forEach(standing => {
-                standing.table.forEach(entry => {
-                    console.log('País exacto de la API:', entry.team.name);
-                });
-            });
-        }
-            
-            if (data.error) {
-                throw new Error(data.error);
-            }
-            
-            if (data.standings && data.standings.length > 0) {
-                const groups = data.standings.map(standing => ({
-                    name: standing.group || 'Clasificación',
-                    teams: standing.table.map(entry => ({
-                        name: entry.team.name,
-                        played: entry.playedGames || 0,
-                        won: entry.won || 0,
-                        drawn: entry.draw || 0,
-                        lost: entry.lost || 0,
-                        points: entry.points || 0
-                    }))
-                }));
-                renderGroups(groups);
-                return;
-            }
-            
-            throw new Error('No se encontraron datos de clasificación');
-            
-        } catch (error) {
-            console.error('Error:', error);
-            showError(error.message || 'Error desconocido al cargar los datos. Verifica tu conexión y la configuración de Netlify.');
-        }
-    }
-
-    loadData();
-</script>
+        <footer>
+            <p>Datos proporcionados por <a href="https://www.football-data.org/" target="_blank">football-data.org</a></p>
+            <p class="attribution">Proyecto de ejemplo &middot; Mundial 2026</p>
+        </footer>
+    </div>
+    
+    <!-- JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
