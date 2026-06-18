@@ -4,13 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>🏆 Mundial 2026 - Grupos y Clasificaciones</title>
-    <!-- Librería de banderas SVG -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.3.2/css/flag-icons.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
-        /* ... (todo tu CSS existente) ... */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #0b1a2e; color: #f0f4f8; min-height: 100vh; padding: 2rem 1.5rem; display: flex; justify-content: center; }
         .container { max-width: 1400px; width: 100%; }
@@ -37,8 +34,7 @@
         .pos-2 { color: #94a3b8; }
         .pos-3 { color: #cd7f32; }
         .team-name { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-        .team-flag { display: inline-flex; align-items: center; width: 24px; height: 18px; }
-        .team-flag .fi { font-size: 1.4rem; line-height: 1; }
+        .team-flag-img { width: 24px; height: 18px; object-fit: cover; border-radius: 2px; display: inline-block; }
         .stats { text-align: center; font-weight: 500; color: #e2e8f0; }
         .pts { font-weight: 700; color: #facc15; }
         footer { margin-top: 4rem; text-align: center; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 2rem; }
@@ -68,44 +64,97 @@
 <script>
     const container = document.getElementById('groupsContainer');
 
-    // --- MAPA DE PAÍSES A CÓDIGOS DE BANDERA (ISO) ---
+    // --- MAPA DE PAÍSES A URLS DE BANDERAS SVG ---
     const FLAG_MAP = {
-        'Argentina': 'ar', 'Perú': 'pe', 'Chile': 'cl', 'Trinidad y Tobago': 'tt',
-        'Brasil': 'br', 'Colombia': 'co', 'Paraguay': 'py', 'Jamaica': 'jm',
-        'Francia': 'fr', 'Países Bajos': 'nl', 'Holanda': 'nl', 'Senegal': 'sn',
-        'Ghana': 'gh', 'Inglaterra': 'gb-eng', 'España': 'es', 'Marruecos': 'ma',
-        'Australia': 'au', 'Alemania': 'de', 'Italia': 'it', 'Nigeria': 'ng',
-        'Nueva Zelanda': 'nz', 'Portugal': 'pt', 'Bélgica': 'be', 'Costa Rica': 'cr',
-        'Canadá': 'ca', 'Uruguay': 'uy', 'México': 'mx', 'Ecuador': 'ec',
-        'Camerún': 'cm', 'Croacia': 'hr', 'Suiza': 'ch', 'Corea del Sur': 'kr',
-        'Estados Unidos': 'us', 'EEUU': 'us', 'USA': 'us', 'Escocia': 'gb-sct',
-        'Gales': 'gb-wls', 'Irlanda': 'ie', 'Dinamarca': 'dk', 'Suecia': 'se',
-        'Noruega': 'no', 'Polonia': 'pl', 'Ucrania': 'ua', 'Rusia': 'ru',
-        'Turquía': 'tr', 'Grecia': 'gr', 'Egipto': 'eg', 'Argelia': 'dz',
-        'Túnez': 'tn', 'Sudáfrica': 'za', 'Costa de Marfil': 'ci', 'Japón': 'jp',
-        'Arabia Saudita': 'sa', 'Irán': 'ir', 'Catar': 'qa', 'Emiratos Árabes Unidos': 'ae'
-    };
+    // Grupo A
+    'Mexico': 'https://flagcdn.com/mx.svg',
+    'South Korea': 'https://flagcdn.com/kr.svg',
+    'Czechia': 'https://flagcdn.com/cz.svg',
+    'South Africa': 'https://flagcdn.com/za.svg',
+
+    // Grupo B
+    'Switzerland': 'https://flagcdn.com/ch.svg',
+    'Canada': 'https://flagcdn.com/ca.svg',
+    'Bosnia-Herzegovina': 'https://flagcdn.com/ba.svg',
+    'Qatar': 'https://flagcdn.com/qa.svg',
+
+    // Grupo C
+    'Scotland': 'https://flagcdn.com/gb-sct.svg',
+    'Morocco': 'https://flagcdn.com/ma.svg',
+    'Brazil': 'https://flagcdn.com/br.svg',
+    'Haiti': 'https://flagcdn.com/ht.svg',
+
+    // Grupo D
+    'United States': 'https://flagcdn.com/us.svg',
+    'Australia': 'https://flagcdn.com/au.svg',
+    'Turkey': 'https://flagcdn.com/tr.svg',
+    'Paraguay': 'https://flagcdn.com/py.svg',
+
+    // Grupo E
+    'Germany': 'https://flagcdn.com/de.svg',
+    'Ivory Coast': 'https://flagcdn.com/ci.svg',
+    'Ecuador': 'https://flagcdn.com/ec.svg',
+    'Curaçao': 'https://flagcdn.com/cw.svg',
+
+    // Grupo F
+    'Sweden': 'https://flagcdn.com/se.svg',
+    'Japan': 'https://flagcdn.com/jp.svg',
+    'Netherlands': 'https://flagcdn.com/nl.svg',
+    'Tunisia': 'https://flagcdn.com/tn.svg',
+
+    // Grupo G
+    'New Zealand': 'https://flagcdn.com/nz.svg',
+    'Iran': 'https://flagcdn.com/ir.svg',
+    'Belgium': 'https://flagcdn.com/be.svg',
+    'Egypt': 'https://flagcdn.com/eg.svg',
+
+    // Grupo H
+    'Uruguay': 'https://flagcdn.com/uy.svg',
+    'Saudi Arabia': 'https://flagcdn.com/sa.svg',
+    'Spain': 'https://flagcdn.com/es.svg',
+    'Cape Verde Islands': 'https://flagcdn.com/cv.svg',
+
+    // Grupo I
+    'Norway': 'https://flagcdn.com/no.svg',
+    'France': 'https://flagcdn.com/fr.svg',
+    'Senegal': 'https://flagcdn.com/sn.svg',
+    'Iraq': 'https://flagcdn.com/iq.svg',
+
+    // Grupo J
+    'Argentina': 'https://flagcdn.com/ar.svg',
+    'Austria': 'https://flagcdn.com/at.svg',
+    'Jordan': 'https://flagcdn.com/jo.svg',
+    'Algeria': 'https://flagcdn.com/dz.svg',
+
+    // Grupo K
+    'Colombia': 'https://flagcdn.com/co.svg',
+    'Congo DR': 'https://flagcdn.com/cd.svg',
+    'Portugal': 'https://flagcdn.com/pt.svg',
+    'Uzbekistan': 'https://flagcdn.com/uz.svg',
+
+    // Grupo L
+    'England': 'https://flagcdn.com/gb-eng.svg',
+    'Ghana': 'https://flagcdn.com/gh.svg',
+    'Panama': 'https://flagcdn.com/pa.svg',
+    'Croatia': 'https://flagcdn.com/hr.svg',
+};
 
     function getFlag(countryName) {
-        if (!countryName) return '<span class="fi"></span>';
-        const code = FLAG_MAP[countryName];
-        if (code) {
-            if (code.includes('gb-')) {
-                return `<span class="fi fi-${code} fis"></span>`;
-            }
-            return `<span class="fi fi-${code}"></span>`;
+        if (!countryName) return '⚽';
+        const flagUrl = FLAG_MAP[countryName];
+        if (flagUrl) {
+            return `<img src="${flagUrl}" alt="${countryName}" class="team-flag-img" />`;
         }
-        // Si no está en el mapa, intentar buscar por coincidencia parcial
+        
+        // Si no está en el mapa, buscar por coincidencia parcial
         const lower = countryName.toLowerCase();
-        for (const [key, codeVal] of Object.entries(FLAG_MAP)) {
+        for (const [key, url] of Object.entries(FLAG_MAP)) {
             if (key.toLowerCase().includes(lower) || lower.includes(key.toLowerCase())) {
-                if (codeVal.includes('gb-')) {
-                    return `<span class="fi fi-${codeVal} fis"></span>`;
-                }
-                return `<span class="fi fi-${codeVal}"></span>`;
+                return `<img src="${url}" alt="${key}" class="team-flag-img" />`;
             }
         }
-        return '<span class="fi"></span>';
+        
+        return '⚽';
     }
 
     function renderGroups(data) {
@@ -142,7 +191,7 @@
                     <tr>
                         <td class="${posClass}">${position}</td>
                         <td class="team-name">
-                            <span class="team-flag">${getFlag(team.name)}</span>
+                            ${getFlag(team.name)}
                             ${team.name || 'Sin nombre'}
                         </td>
                         <td class="stats">${team.played || 0}</td>
@@ -184,6 +233,14 @@
             
             const data = await response.json();
             console.log('Datos recibidos:', data);
+
+            if (data.standings) {
+            data.standings.forEach(standing => {
+                standing.table.forEach(entry => {
+                    console.log('País exacto de la API:', entry.team.name);
+                });
+            });
+        }
             
             if (data.error) {
                 throw new Error(data.error);
