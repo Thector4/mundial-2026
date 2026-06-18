@@ -1,6 +1,4 @@
-// netlify/functions/clasificacion.js
 export default async (request, context) => {
-  // Tu API Key se cargará de forma segura desde las variables de entorno de Netlify
   const API_KEY = process.env.FOOTBALL_API_KEY;
   const API_URL = 'https://api.football-data.org/v4/competitions/2000/standings?standingType=TOTAL';
 
