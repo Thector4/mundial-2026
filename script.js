@@ -301,7 +301,6 @@ function renderResults(matches) {
                             ${awayTeam}
                         </span>
                     </div>
-                    <span class="result-status">✅ Finalizado</span>
                 </div>
             `;
         });
