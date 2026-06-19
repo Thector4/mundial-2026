@@ -144,7 +144,7 @@ header p {
 
 .group-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
@@ -156,6 +156,7 @@ header p {
     font-weight: 700;
     color: #facc15;
     letter-spacing: -0.01em;
+    text-align: center; 
 }
 
 /* ========================================== */
