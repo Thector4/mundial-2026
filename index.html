@@ -30,6 +30,9 @@
             <button class="tab-btn" data-tab="resultados" onclick="switchTab('resultados')">
                 ⚽ Resultados anteriores
             </button>
+            <button class="tab-btn" data-tab="proximos" onclick="switchTab('proximos')">
+                🗓️ Próximos partidos
+            </button>
             <button class="tab-btn" data-tab="videos" onclick="switchTab('videos')">
                 🎬 Vídeos
             </button>
@@ -47,6 +50,11 @@
             <!-- Pestaña: Resultados -->
             <div id="tabResultados" class="tab-panel" style="display:none;">
                 <div id="resultsContainer" class="status">⏳ Cargando resultados...</div>
+            </div>
+
+            <!-- Pestaña: Próximos partidos -->
+            <div id="tabProximos" class="tab-panel" style="display:none;">
+                <div id="proximosContainer" class="status">⏳ Cargando próximos partidos...</div>
             </div>
 
             <!-- Pestaña: Vídeos -->

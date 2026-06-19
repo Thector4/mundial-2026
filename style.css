@@ -230,15 +230,17 @@ header p {
 }
 
 /* ========================================== */
-/* RESULTADOS DE PARTIDOS                     */
+/* RESULTADOS Y PRÓXIMOS PARTIDOS             */
 /* ========================================== */
-.results-list {
+.results-list,
+.proximos-list {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
-.results-date-header {
+.results-date-header,
+.proximos-date-header {
     color: #94a3b8;
     font-size: 1rem;
     margin: 1.5rem 0 0.8rem;
@@ -246,7 +248,8 @@ header p {
     text-align: center;
 }
 
-.result-card {
+.result-card,
+.proximo-card {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -255,7 +258,8 @@ header p {
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.result-team-left {
+.result-team-left,
+.proximo-team-left {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -266,7 +270,8 @@ header p {
     text-align: right;
 }
 
-.result-team-right {
+.result-team-right,
+.proximo-team-right {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -278,7 +283,9 @@ header p {
 }
 
 .result-team-left img,
-.result-team-right img {
+.result-team-right img,
+.proximo-team-left img,
+.proximo-team-right img {
     width: 24px;
     height: 18px;
     object-fit: cover;
@@ -295,37 +302,18 @@ header p {
     padding: 0 0.5rem;
 }
 
-.result-date {
-    display: none;
+.proximo-hora {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #60a5fa;
+    text-align: center;
+    min-width: 70px;
+    padding: 0 0.5rem;
 }
 
+.result-date,
 .result-status {
     display: none;
-}
-
-/* Responsive para móviles */
-@media (max-width: 600px) {
-    .result-card {
-        gap: 0.3rem;
-        padding: 0.4rem 0;
-    }
-    
-    .result-team-left,
-    .result-team-right {
-        font-size: 0.75rem;
-        min-width: 100px;
-    }
-    
-    .result-team-left img,
-    .result-team-right img {
-        width: 18px;
-        height: 14px;
-    }
-    
-    .result-score {
-        font-size: 0.95rem;
-        min-width: 40px;
-    }
 }
 
 /* ========================================== */
@@ -497,35 +485,36 @@ footer a:hover {
         font-size: 1rem;
     }
     
-    .result-card {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-        padding: 1rem;
+    .result-card,
+    .proximo-card {
+        gap: 0.3rem;
+        padding: 0.4rem 0;
     }
     
-    .result-date {
-        text-align: center;
-        font-size: 0.7rem;
+    .result-team-left,
+    .result-team-right,
+    .proximo-team-left,
+    .proximo-team-right {
+        font-size: 0.75rem;
+        min-width: 100px;
     }
     
-    .result-teams {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .result-team {
-        font-size: 0.85rem;
+    .result-team-left img,
+    .result-team-right img,
+    .proximo-team-left img,
+    .proximo-team-right img {
+        width: 18px;
+        height: 14px;
     }
     
     .result-score {
-        font-size: 1rem;
-        padding: 0 0.5rem;
+        font-size: 0.95rem;
+        min-width: 40px;
     }
     
-    .result-status {
-        font-size: 0.65rem;
-        align-self: center;
+    .proximo-hora {
+        font-size: 0.8rem;
+        min-width: 50px;
     }
     
     .tab-btn {

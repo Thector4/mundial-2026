@@ -289,8 +289,8 @@ function renderResults(matches) {
             html += `
                 <div class="result-card">
                     <span class="result-team-left">
-                        ${getFlag(homeTeam)}
                         ${homeTeam}
+                        ${getFlag(homeTeam)}
                     </span>
                     <span class="result-score">${homeGoals} - ${awayGoals}</span>
                     <span class="result-team-right">
@@ -304,6 +304,113 @@ function renderResults(matches) {
     
     html += `</div>`;
     resultsContainer.innerHTML = html;
+}
+
+// ========================================== //
+// FUNCIÓN PARA CARGAR PRÓXIMOS PARTIDOS      //
+// ========================================== //
+async function loadProximos() {
+    const proximosContainer = document.getElementById('proximosContainer');
+    proximosContainer.innerHTML = `<div class="status">⏳ Cargando próximos partidos...</div>`;
+    
+    try {
+        const response = await fetch('/.netlify/functions/partidos');
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Partidos recibidos:', data);
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        
+        const limite = new Date(hoy);
+        limite.setDate(limite.getDate() + 2);
+        limite.setHours(23, 59, 59, 999);
+        
+        const proximosPartidos = data.matches
+            .filter(match => {
+                const fechaPartido = new Date(match.utcDate);
+                return fechaPartido >= hoy && fechaPartido <= limite;
+            })
+            .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+        
+        if (proximosPartidos.length === 0) {
+            proximosContainer.innerHTML = `<div class="status">ℹ️ No hay próximos partidos en los próximos 3 días.</div>`;
+            return;
+        }
+        
+        renderProximos(proximosPartidos);
+        
+    } catch (error) {
+        console.error('Error al cargar próximos partidos:', error);
+        proximosContainer.innerHTML = `
+            <div class="status error">
+                ❌ Error al cargar los próximos partidos: ${error.message}
+                <br><br>
+                <button class="refresh-btn" onclick="loadProximos()">🔄 Reintentar</button>
+            </div>
+        `;
+    }
+}
+
+// ========================================== //
+// FUNCIÓN PARA PINTAR PRÓXIMOS PARTIDOS      //
+// ========================================== //
+function renderProximos(matches) {
+    const proximosContainer = document.getElementById('proximosContainer');
+    
+    const groupedByDate = {};
+    matches.forEach(match => {
+        const date = new Date(match.utcDate).toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        if (!groupedByDate[date]) {
+            groupedByDate[date] = [];
+        }
+        groupedByDate[date].push(match);
+    });
+    
+    let html = `<div class="proximos-list">`;
+    
+    for (const [date, matchesOfDay] of Object.entries(groupedByDate)) {
+        html += `<h3 class="proximos-date-header">📅 ${date}</h3>`;
+        
+        matchesOfDay.forEach(match => {
+            const homeTeam = match.homeTeam.name;
+            const awayTeam = match.awayTeam.name;
+            const hora = new Date(match.utcDate).toLocaleTimeString('es-ES', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            html += `
+                <div class="proximo-card">
+                    <span class="proximo-team-left">
+                        ${homeTeam}
+                        ${getFlag(homeTeam)}
+                    </span>
+                    <span class="proximo-hora">${hora}</span>
+                    <span class="proximo-team-right">
+                        ${getFlag(awayTeam)}
+                        ${awayTeam}
+                    </span>
+                </div>
+            `;
+        });
+    }
+    
+    html += `</div>`;
+    proximosContainer.innerHTML = html;
 }
 
 // ========================================== //
@@ -333,6 +440,7 @@ function switchTab(tab) {
     const subtitles = {
         'clasificacion': 'Clasificación de los grupos',
         'resultados': 'Resultados de los partidos',
+        'proximos': 'Próximos partidos',
         'videos': 'Vídeos destacados'
     };
     document.getElementById('pageSubtitle').textContent = subtitles[tab] || '';
@@ -342,6 +450,11 @@ function switchTab(tab) {
     if (tab === 'resultados' && !window.resultsLoaded) {
         loadResults();
         window.resultsLoaded = true;
+    }
+    
+    if (tab === 'proximos' && !window.proximosLoaded) {
+        loadProximos();
+        window.proximosLoaded = true;
     }
 }
 
