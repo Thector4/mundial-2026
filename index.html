@@ -17,70 +17,99 @@
     <div class="container">
         <header>
             <h1>🏆 Mundial 2026</h1>
-            <p>Clasificación de los grupos</p>
-            <span class="badge">⚡ Datos en tiempo real</span>
+            <p id="pageSubtitle">Clasificación de los grupos</p>
         </header>
-        
-        <div id="groupsContainer" class="status">⏳ Cargando clasificaciones...</div>
-        
-        <!-- SECCIÓN DE VÍDEOS -->
-        <div class="videos-section">
-            <h2>🎬 Vídeos destacados del Mundial</h2>
-            <p class="videos-subtitle">Los mejores momentos, resúmenes y análisis de la competición.</p>
-            <div class="videos-grid">
-                <!-- Tarjeta de vídeo 1 -->
-                <div class="video-card">
-                    <iframe 
-                        src="https://www.youtube.com/embed/hEoXaywnG9A" 
-                        title="ACTUALIDAD del MUNDIAL | Debut desastroso de España, pinchazos de favoritos, sorpresas..."
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
-                    <div class="video-info">
-                        <h3>ACTUALIDAD del MUNDIAL</h3>
-                        <p>Debut desastroso de España, pinchazos de favoritos y grandes sorpresas en la primera jornada.</p>
-                        <span class="video-source">📺 YouTube</span>
-                    </div>
-                </div>
 
-                <!-- Tarjeta de vídeo 2 -->
-                <div class="video-card">
-                    <iframe 
-                        src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
-                        title="Título del vídeo 2"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
-                    <div class="video-info">
-                        <h3>Título del vídeo</h3>
-                        <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
-                        <span class="video-source">📺 YouTube</span>
-                    </div>
-                </div>
+        <!-- ========================================== -->
+        <!-- NAVEGACIÓN POR PESTAÑAS                     -->
+        <!-- ========================================== -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="clasificacion" onclick="switchTab('clasificacion')">
+                📊 Clasificación
+            </button>
+            <button class="tab-btn" data-tab="resultados" onclick="switchTab('resultados')">
+                ⚽ Resultados anteriores
+            </button>
+            <button class="tab-btn" data-tab="videos" onclick="switchTab('videos')">
+                🎬 Vídeos
+            </button>
+        </nav>
 
-                <!-- Tarjeta de vídeo 3 -->
-                <div class="video-card">
-                    <iframe 
-                        src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
-                        title="Título del vídeo 3"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                    </iframe>
-                    <div class="video-info">
-                        <h3>Título del vídeo</h3>
-                        <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
-                        <span class="video-source">📺 YouTube</span>
+        <!-- ========================================== -->
+        <!-- CONTENIDO DE LAS PESTAÑAS                  -->
+        <!-- ========================================== -->
+        <div id="tabContent">
+            <!-- Pestaña: Clasificación -->
+            <div id="tabClasificacion" class="tab-panel active">
+                <div id="groupsContainer" class="status">⏳ Cargando clasificaciones...</div>
+            </div>
+
+            <!-- Pestaña: Resultados -->
+            <div id="tabResultados" class="tab-panel" style="display:none;">
+                <div id="resultsContainer" class="status">⏳ Cargando resultados...</div>
+            </div>
+
+            <!-- Pestaña: Vídeos -->
+            <div id="tabVideos" class="tab-panel" style="display:none;">
+                <div class="videos-section">
+                    <h2>🎬 Vídeos destacados del Mundial</h2>
+                    <p class="videos-subtitle">Los mejores momentos, resúmenes y análisis de la competición.</p>
+                    <div class="videos-grid">
+                        <!-- Tarjeta de vídeo 1 -->
+                        <div class="video-card">
+                            <iframe 
+                                src="https://www.youtube.com/embed/hEoXaywnG9A" 
+                                title="ACTUALIDAD del MUNDIAL"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                            <div class="video-info">
+                                <h3>ACTUALIDAD del MUNDIAL</h3>
+                                <p>Debut desastroso de España, pinchazos de favoritos y grandes sorpresas en la primera jornada.</p>
+                                <span class="video-source">📺 YouTube</span>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta de vídeo 2 -->
+                        <div class="video-card">
+                            <iframe 
+                                src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
+                                title="Título del vídeo 2"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                            <div class="video-info">
+                                <h3>Título del vídeo</h3>
+                                <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
+                                <span class="video-source">📺 YouTube</span>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta de vídeo 3 -->
+                        <div class="video-card">
+                            <iframe 
+                                src="https://www.youtube.com/embed/VIDEO_ID_AQUI" 
+                                title="Título del vídeo 3"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen>
+                            </iframe>
+                            <div class="video-info">
+                                <h3>Título del vídeo</h3>
+                                <p>Descripción breve del vídeo. Puedes explicar de qué trata o qué momentos destacados incluye.</p>
+                                <span class="video-source">📺 YouTube</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <footer>
             <p>Datos proporcionados por <a href="https://www.football-data.org/" target="_blank">football-data.org</a></p>
             <p class="attribution">Proyecto de ejemplo &middot; Mundial 2026</p>

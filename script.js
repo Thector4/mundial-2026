@@ -90,7 +90,6 @@ function getFlag(countryName) {
     if (flagUrl) {
         return `<img src="${flagUrl}" alt="${countryName}" class="team-flag-img" />`;
     }
-    // Si no está en el mapa, buscar por coincidencia parcial
     const lower = countryName.toLowerCase();
     for (const [key, url] of Object.entries(FLAG_MAP)) {
         if (key.toLowerCase().includes(lower) || lower.includes(key.toLowerCase())) {
@@ -105,7 +104,7 @@ function getFlag(countryName) {
 // ========================================== //
 function renderGroups(data) {
     if (!data || data.length === 0) {
-        container.innerHTML = `<div class="status">No se encontraron datos de grupos.</div>`;
+        container.innerHTML = `<div class="status">⚠️ No se encontraron datos de grupos.</div>`;
         return;
     }
 
@@ -159,10 +158,10 @@ function renderGroups(data) {
 function showError(message) {
     container.innerHTML = `
         <div class="error-box">
-            <div class="status error">Error al cargar los datos</div>
+            <div class="status error">❌ Error al cargar los datos</div>
             <p style="text-align:center;color:#94a3b8;margin:1rem 0;">${message}</p>
             <div style="text-align:center;">
-                <button class="refresh-btn" onclick="loadData()">Reintentar</button>
+                <button class="refresh-btn" onclick="loadData()">🔄 Reintentar</button>
             </div>
         </div>
     `;
@@ -172,7 +171,7 @@ function showError(message) {
 // FUNCIÓN PRINCIPAL PARA CARGAR DATOS        //
 // ========================================== //
 async function loadData() {
-    container.innerHTML = `<div class="status">Cargando clasificaciones...</div>`;
+    container.innerHTML = `<div class="status">⏳ Cargando clasificaciones...</div>`;
     
     try {
         const response = await fetch('/.netlify/functions/clasificacion');
@@ -213,6 +212,150 @@ async function loadData() {
 }
 
 // ========================================== //
+// FUNCIÓN PARA CARGAR RESULTADOS             //
+// ========================================== //
+async function loadResults() {
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = `<div class="status">⏳ Cargando resultados...</div>`;
+    
+    try {
+        const response = await fetch('/.netlify/functions/partidos');
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Partidos recibidos:', data);
+        
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        const finishedMatches = data.matches
+            .filter(match => match.status === 'FINISHED')
+            .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+        
+        if (finishedMatches.length === 0) {
+            resultsContainer.innerHTML = `<div class="status">ℹ️ No hay resultados disponibles todavía.</div>`;
+            return;
+        }
+        
+        renderResults(finishedMatches);
+        
+    } catch (error) {
+        console.error('Error al cargar resultados:', error);
+        resultsContainer.innerHTML = `
+            <div class="status error">
+                ❌ Error al cargar los resultados: ${error.message}
+                <br><br>
+                <button class="refresh-btn" onclick="loadResults()">🔄 Reintentar</button>
+            </div>
+        `;
+    }
+}
+
+// ========================================== //
+// FUNCIÓN PARA PINTAR RESULTADOS             //
+// ========================================== //
+function renderResults(matches) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    
+    const groupedByDate = {};
+    matches.forEach(match => {
+        const date = new Date(match.utcDate).toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        if (!groupedByDate[date]) {
+            groupedByDate[date] = [];
+        }
+        groupedByDate[date].push(match);
+    });
+    
+    let html = `<div class="results-list">`;
+    
+    for (const [date, matchesOfDay] of Object.entries(groupedByDate)) {
+        html += `<div class="results-date-group">`;
+        html += `<h3 class="results-date-header">📅 ${date}</h3>`;
+        
+        matchesOfDay.forEach(match => {
+            const homeTeam = match.homeTeam.name;
+            const awayTeam = match.awayTeam.name;
+            const homeGoals = match.score.fullTime.home ?? '?';
+            const awayGoals = match.score.fullTime.away ?? '?';
+            
+            html += `
+                <div class="result-card">
+                    <span class="result-date">${new Date(match.utcDate).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                    <div class="result-teams">
+                        <span class="result-team">
+                            ${getFlag(homeTeam)}
+                            ${homeTeam}
+                        </span>
+                        <span class="result-score">${homeGoals} - ${awayGoals}</span>
+                        <span class="result-team">
+                            ${getFlag(awayTeam)}
+                            ${awayTeam}
+                        </span>
+                    </div>
+                    <span class="result-status">✅ Finalizado</span>
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+    }
+    
+    html += `</div>`;
+    resultsContainer.innerHTML = html;
+}
+
+// ========================================== //
+// FUNCIÓN PARA CAMBIAR DE PESTAÑA            //
+// ========================================== //
+let currentTab = 'clasificacion';
+
+function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    const targetPanel = document.getElementById(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+    if (targetPanel) {
+        targetPanel.style.display = 'block';
+    }
+    
+    const targetBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+    if (targetBtn) {
+        targetBtn.classList.add('active');
+    }
+    
+    const subtitles = {
+        'clasificacion': 'Clasificación de los grupos',
+        'resultados': 'Resultados de los partidos',
+        'videos': 'Vídeos destacados'
+    };
+    document.getElementById('pageSubtitle').textContent = subtitles[tab] || '';
+    
+    currentTab = tab;
+    
+    if (tab === 'resultados' && !window.resultsLoaded) {
+        loadResults();
+        window.resultsLoaded = true;
+    }
+}
+
+// ========================================== //
 // EJECUTAR AL CARGAR LA PÁGINA              //
 // ========================================== //
-loadData();
+document.addEventListener('DOMContentLoaded', function() {
+    switchTab('clasificacion');
+    loadData();
+});
