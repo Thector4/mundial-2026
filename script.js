@@ -115,7 +115,7 @@ function renderGroups(data) {
         html += `
             <div class="group-card">
                 <div class="group-header">
-                    <span class="group-name">${groupName}</span>
+                    <span class="group-name"><center>${groupName}</center></span>
                 </div>
                 <table class="table">
                     <thead>
