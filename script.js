@@ -327,19 +327,22 @@ async function loadProximos() {
             throw new Error(data.error);
         }
         
-        const hoy = new Date();
-        hoy.setHours(0, 0, 0, 0);
+        // Fecha y hora ACTUALES (para filtrar partidos FUTUROS)
+        const ahora = new Date();
         
-        const limite = new Date(hoy);
+        // Fecha límite: 3 días después (hoy + 2 días)
+        const limite = new Date(ahora);
         limite.setDate(limite.getDate() + 2);
         limite.setHours(23, 59, 59, 999);
         
+        // Filtrar partidos que aún NO han empezado (fecha > ahora) y dentro del límite
         const proximosPartidos = data.matches
             .filter(match => {
                 const fechaPartido = new Date(match.utcDate);
-                return fechaPartido >= hoy && fechaPartido <= limite;
+                // Solo partidos futuros (aún no han empezado) y dentro del límite
+                return fechaPartido > ahora && fechaPartido <= limite;
             })
-            .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+            .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate)); // Más próximo primero
         
         if (proximosPartidos.length === 0) {
             proximosContainer.innerHTML = `<div class="status">ℹ️ No hay próximos partidos en los próximos 3 días.</div>`;
