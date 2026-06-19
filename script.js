@@ -278,7 +278,6 @@ function renderResults(matches) {
     let html = `<div class="results-list">`;
     
     for (const [date, matchesOfDay] of Object.entries(groupedByDate)) {
-        html += `<div class="results-date-group">`;
         html += `<h3 class="results-date-header">📅 ${date}</h3>`;
         
         matchesOfDay.forEach(match => {
@@ -289,23 +288,18 @@ function renderResults(matches) {
             
             html += `
                 <div class="result-card">
-                    <span class="result-date">${new Date(match.utcDate).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                    <div class="result-teams">
-                        <span class="result-team">
-                            ${getFlag(homeTeam)}
-                            ${homeTeam}
-                        </span>
-                        <span class="result-score">${homeGoals} - ${awayGoals}</span>
-                        <span class="result-team">
-                            ${getFlag(awayTeam)}
-                            ${awayTeam}
-                        </span>
-                    </div>
+                    <span class="result-team-left">
+                        ${getFlag(homeTeam)}
+                        ${homeTeam}
+                    </span>
+                    <span class="result-score">${homeGoals} - ${awayGoals}</span>
+                    <span class="result-team-right">
+                        ${getFlag(awayTeam)}
+                        ${awayTeam}
+                    </span>
                 </div>
             `;
         });
-        
-        html += `</div>`;
     }
     
     html += `</div>`;
