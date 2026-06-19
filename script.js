@@ -158,7 +158,7 @@ function renderGroups(data) {
 function showError(message) {
     container.innerHTML = `
         <div class="error-box">
-            <div class="status error">❌ Error al cargar los datos</div>
+            <div class="status error">Error al cargar los datos</div>
             <p style="text-align:center;color:#94a3b8;margin:1rem 0;">${message}</p>
             <div style="text-align:center;">
                 <button class="refresh-btn" onclick="loadData()">🔄 Reintentar</button>
@@ -171,7 +171,7 @@ function showError(message) {
 // FUNCIÓN PRINCIPAL PARA CARGAR DATOS        //
 // ========================================== //
 async function loadData() {
-    container.innerHTML = `<div class="status">⏳ Cargando clasificaciones...</div>`;
+    container.innerHTML = `<div class="status">Cargando clasificaciones...</div>`;
     
     try {
         const response = await fetch('/.netlify/functions/clasificacion');
@@ -216,7 +216,7 @@ async function loadData() {
 // ========================================== //
 async function loadResults() {
     const resultsContainer = document.getElementById('resultsContainer');
-    resultsContainer.innerHTML = `<div class="status">⏳ Cargando resultados...</div>`;
+    resultsContainer.innerHTML = `<div class="status">Cargando resultados...</div>`;
     
     try {
         const response = await fetch('/.netlify/functions/partidos');
@@ -278,7 +278,7 @@ function renderResults(matches) {
     let html = `<div class="results-list">`;
     
     for (const [date, matchesOfDay] of Object.entries(groupedByDate)) {
-        html += `<h3 class="results-date-header">📅 ${date}</h3>`;
+        html += `<h3 class="results-date-header"> ${date}</h3>`;
         
         matchesOfDay.forEach(match => {
             const homeTeam = match.homeTeam.name;
@@ -311,7 +311,7 @@ function renderResults(matches) {
 // ========================================== //
 async function loadProximos() {
     const proximosContainer = document.getElementById('proximosContainer');
-    proximosContainer.innerHTML = `<div class="status">⏳ Cargando próximos partidos...</div>`;
+    proximosContainer.innerHTML = `<div class="status">Cargando próximos partidos...</div>`;
     
     try {
         const response = await fetch('/.netlify/functions/partidos');
@@ -386,7 +386,7 @@ function renderProximos(matches) {
     let html = `<div class="proximos-list">`;
     
     for (const [date, matchesOfDay] of Object.entries(groupedByDate)) {
-        html += `<h3 class="proximos-date-header">📅 ${date}</h3>`;
+        html += `<h3 class="proximos-date-header"> ${date}</h3>`;
         
         matchesOfDay.forEach(match => {
             const homeTeam = match.homeTeam.name;
