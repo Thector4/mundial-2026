@@ -20,3 +20,5 @@ package-lock.json
 # Archivos de construcción (si usas)
 dist
 build
+# Local Netlify folder
+.netlify

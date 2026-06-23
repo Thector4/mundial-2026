@@ -1,0 +1,153 @@
+/* ========================================== */
+/* proximos.css - Pestaña Próximos partidos   */
+/* ========================================== */
+
+.proximos-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.proximos-date-header {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin: 1.5rem 0 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ========================================== */
+/* HOY - Título especial con fuego           */
+/* ========================================== */
+
+.proximos-date-header-hoy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 1.5rem 0 0.8rem;
+    padding: 0.5rem 1rem;
+    background: rgba(251, 191, 36, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(251, 191, 36, 0.1);
+}
+
+.proximos-fire {
+    font-size: 1.6rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.proximos-date-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f0f4f8;
+}
+
+.proximos-badge-hoy {
+    background: rgba(251, 191, 36, 0.15);
+    color: #facc15;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ========================================== */
+/* TARJETAS DE PARTIDOS                      */
+/* ========================================== */
+
+.proximo-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    flex-wrap: wrap;
+}
+
+.proximo-team-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    justify-content: flex-end;
+    min-width: 180px;
+    text-align: right;
+}
+
+.proximo-team-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    justify-content: flex-start;
+    min-width: 180px;
+    text-align: left;
+}
+
+.proximo-team-left img,
+.proximo-team-right img {
+    width: 24px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.proximo-hora {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #60a5fa;
+    text-align: center;
+    min-width: 70px;
+    padding: 0 0.5rem;
+}
+
+/* ========================================== */
+/* RESPONSIVE                                 */
+/* ========================================== */
+
+@media (max-width: 600px) {
+    .proximo-card {
+        gap: 0.3rem;
+        padding: 0.4rem 0;
+        flex-wrap: wrap;
+    }
+    .proximo-team-left,
+    .proximo-team-right {
+        font-size: 0.75rem;
+        min-width: 100px;
+    }
+    .proximo-team-left img,
+    .proximo-team-right img {
+        width: 18px;
+        height: 14px;
+    }
+    .proximo-hora {
+        font-size: 0.8rem;
+        min-width: 50px;
+    }
+    .proximos-date-header-hoy {
+        gap: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        flex-wrap: wrap;
+    }
+    .proximos-fire {
+        font-size: 1.4rem;
+    }
+    .proximos-date-text {
+        font-size: 1rem;
+    }
+    .proximos-badge-hoy {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.6rem;
+    }
+}

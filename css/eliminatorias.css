@@ -1,0 +1,247 @@
+/* ========================================== */
+/* eliminatorias.css - ÁRBOL OFICIAL          */
+/* ========================================== */
+
+.eliminatorias-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.eliminatorias-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #facc15;
+    margin-bottom: 0.5rem;
+}
+
+.eliminatorias-subtitle {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* ========================================== */
+/* ÁRBOL OFICIAL                             */
+/* ========================================== */
+
+.tree-oficial {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 900px;
+    padding: 1rem 0;
+}
+
+.tree-fila {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.tree-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1.5rem;
+    flex: 1;
+    min-width: 140px;
+    padding: 0.5rem;
+}
+
+.tree-col-central {
+    flex: 0.8;
+    min-width: 120px;
+}
+
+.tree-col-final {
+    flex: 0.6;
+    min-width: 160px;
+    justify-content: center;
+}
+
+/* ========================================== */
+/* PARTIDO                                   */
+/* ========================================== */
+
+.tree-partido {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    transition: all 0.3s ease;
+    min-height: 60px;
+}
+
+.tree-partido:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(251, 191, 36, 0.2);
+}
+
+.tree-partido .tree-equipo {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #f0f4f8;
+    justify-content: center;
+}
+
+.tree-partido .tree-equipo.ganador {
+    font-weight: 700;
+    color: #facc15;
+}
+
+.tree-partido .tree-equipo img {
+    width: 18px;
+    height: 13px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.tree-partido .tree-vs {
+    font-size: 0.5rem;
+    color: #64748b;
+    text-align: center;
+}
+
+.tree-partido .tree-score {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #facc15;
+    text-align: center;
+}
+
+.tree-partido .tree-info {
+    font-size: 0.45rem;
+    color: #64748b;
+    text-align: center;
+    margin-top: 0.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding-top: 0.1rem;
+}
+
+.tree-partido.finalizado {
+    border-color: rgba(74, 222, 128, 0.2);
+}
+
+.tree-partido.en-curso {
+    border-color: rgba(251, 191, 36, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { border-color: rgba(251, 191, 36, 0.3); }
+    50% { border-color: rgba(251, 191, 36, 0.6); }
+}
+
+.tree-partido.tree-final-partido {
+    border-color: #facc15;
+    border-width: 2px;
+    background: rgba(251, 191, 36, 0.05);
+    min-height: 80px;
+}
+
+.tree-partido.tree-final-partido .tree-equipo {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.tree-partido.tree-final-partido .tree-score {
+    font-size: 0.9rem;
+}
+
+.tree-partido .tree-equipo {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: #f0f4f8;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.tree-partido .tree-equipo.sin-bandera {
+    padding-left: 0.5rem;
+}
+
+/* ========================================== */
+/* RESPONSIVE                                 */
+/* ========================================== */
+
+@media (max-width: 900px) {
+    .tree-oficial {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        min-width: auto;
+    }
+    .tree-fila {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tree-col {
+        min-width: auto;
+        width: 100%;
+        max-width: 320px;
+        flex: none;
+    }
+    .tree-col-central {
+        min-width: auto;
+        flex: none;
+    }
+    .tree-col-final {
+        min-width: auto;
+        flex: none;
+    }
+    .tree-partido .tree-equipo {
+        font-size: 0.6rem;
+    }
+    .tree-partido .tree-equipo img {
+        width: 14px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .eliminatorias-title {
+        font-size: 1.5rem;
+    }
+    .tree-partido {
+        padding: 0.3rem 0.4rem;
+        min-height: 45px;
+    }
+    .tree-partido .tree-equipo {
+        font-size: 0.55rem;
+    }
+    .tree-partido .tree-equipo img {
+        width: 12px;
+        height: 9px;
+    }
+    .tree-partido .tree-info {
+        font-size: 0.4rem;
+    }
+    .tree-partido .tree-score {
+        font-size: 0.6rem;
+    }
+    .tree-partido.tree-final-partido {
+        min-height: 60px;
+    }
+    .tree-partido.tree-final-partido .tree-equipo {
+        font-size: 0.7rem;
+    }
+    .tree-col {
+        max-width: 260px;
+    }
+}

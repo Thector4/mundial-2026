@@ -1,0 +1,88 @@
+/* ========================================== */
+/* resultados.css - Pestaña Resultados        */
+/* ========================================== */
+
+.results-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.results-date-header {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin: 1.5rem 0 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.result-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-team-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    justify-content: flex-end;
+    min-width: 180px;
+    text-align: right;
+}
+
+.result-team-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    justify-content: flex-start;
+    min-width: 180px;
+    text-align: left;
+}
+
+.result-team-left img,
+.result-team-right img {
+    width: 24px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.result-score {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #facc15;
+    text-align: center;
+    min-width: 60px;
+    padding: 0 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .result-card {
+        gap: 0.3rem;
+        padding: 0.4rem 0;
+        flex-wrap: wrap;
+    }
+    .result-team-left,
+    .result-team-right {
+        font-size: 0.75rem;
+        min-width: 100px;
+    }
+    .result-team-left img,
+    .result-team-right img {
+        width: 18px;
+        height: 14px;
+    }
+    .result-score {
+        font-size: 0.95rem;
+        min-width: 40px;
+    }
+}

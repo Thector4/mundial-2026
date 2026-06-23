@@ -4,18 +4,25 @@ Página web interactiva que muestra la clasificación de los grupos del Mundial 
 
 ## ✨ Características
 
-- 📊 Muestra los 8 grupos del Mundial 2026
-- 🔄 Actualización en tiempo real de partidos, goles y puntos
+- 📊 **Clasificación en tiempo real** de los 12 grupos del Mundial 2026
+- ⚽ **Resultados anteriores** con marcadores y fechas
+- 🗓️ **Próximos partidos** con indicador "🔥 HOY"
+- 🏆 **Árbol de eliminatorias** desde 16avos hasta la final
+- 🎮 **Simulador interactivo** para predecir resultados y ver cómo avanza el torneo
 - 🎨 Diseño moderno con temática oscura
-- 🏅 Colores especiales para los 3 primeros de cada grupo
 - 📱 Responsive (funciona en móviles y tablets)
+- 🏳️ Banderas de todos los países participantes
+- 🌍 Nombres de equipos traducidos al español
 
-## 🚀 Cómo usarlo
+## 🚀 Tecnologías
 
-### Ver la página en vivo
-La página está disponible en: `https://tu-usuario.github.io/mundial-2026`
+- **HTML5** - Estructura de la página
+- **CSS3** - Estilos y diseño (con CSS modules)
+- **JavaScript (ES6)** - Lógica y peticiones a la API
+- **football-data.org API** - Datos de clasificación, partidos y resultados
+- **Netlify Functions** - Backend serverless para proteger la API Key
+- **Netlify CLI** - Desarrollo local y despliegue
 
-### Ejecutarlo localmente
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/mundial-2026.git
+## 🔒 Seguridad
+
+La API Key de football-data.org está protegida mediante **variables de entorno de Netlify**. Nunca se expone en el código fuente.

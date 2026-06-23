@@ -1,4 +1,3 @@
-// netlify/functions/partidos.js
 export default async (request, context) => {
   const API_KEY = process.env.FOOTBALL_API_KEY;
   const API_URL = 'https://api.football-data.org/v4/competitions/2000/matches';

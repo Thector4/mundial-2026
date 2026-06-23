@@ -1,0 +1,89 @@
+/* ========================================== */
+/* header.css - Header y navegación           */
+/* ========================================== */
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    margin-top: 0.5rem;
+    font-weight: 400;
+}
+
+/* ========================================== */
+/* PESTAÑAS DE NAVEGACIÓN                     */
+/* ========================================== */
+
+.tabs-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f0f4f8;
+}
+
+.tab-btn.active {
+    background: rgba(251, 191, 36, 0.15);
+    color: #facc15;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.05);
+}
+
+.tab-panel {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+    .tab-btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.8rem;
+        min-width: 80px;
+    }
+}

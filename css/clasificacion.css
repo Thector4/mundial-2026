@@ -1,0 +1,126 @@
+/* ========================================== */
+/* clasificacion.css - Pestaña Clasificación  */
+/* ========================================== */
+
+.groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.group-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    border-radius: 24px;
+    padding: 1.8rem 1.5rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.group-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 50px -16px rgba(0, 0, 0, 0.8);
+    border-color: rgba(251, 191, 36, 0.15);
+}
+
+.group-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.group-name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #facc15;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+/* ========================================== */
+/* TABLA DE CLASIFICACIÓN                     */
+/* ========================================== */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table thead th {
+    text-align: left;
+    padding: 0.5rem 0.3rem;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.15s;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.table tbody td {
+    padding: 0.7rem 0.3rem;
+    vertical-align: middle;
+}
+
+.pos {
+    font-weight: 700;
+    width: 30px;
+    text-align: center;
+    color: #cbd5e1;
+}
+
+.pos-1 { color: #fbbf24; }
+.pos-2 { color: #94a3b8; }
+.pos-3 { color: #cd7f32; }
+
+.team-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.team-flag-img {
+    width: 24px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.stats {
+    text-align: center;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.pts {
+    font-weight: 700;
+    color: #facc15;
+}
+
+@media (max-width: 600px) {
+    .groups-grid {
+        grid-template-columns: 1fr;
+    }
+    .group-card {
+        padding: 1.2rem;
+    }
+    .table {
+        font-size: 0.8rem;
+    }
+}
