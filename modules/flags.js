@@ -205,6 +205,8 @@ const FLAG_MAP = {
     'Túnez': 'https://flagcdn.com/tn.svg',
     'Sudáfrica': 'https://flagcdn.com/za.svg',
     'República Democrática del Congo': 'https://flagcdn.com/cd.svg',
+    'RD Congo': 'https://flagcdn.com/cd.svg',
+    'Congo DR': 'https://flagcdn.com/cd.svg',
     'Cabo Verde': 'https://flagcdn.com/cv.svg',
     'Malí': 'https://flagcdn.com/ml.svg',
     'Burkina Faso': 'https://flagcdn.com/bf.svg',

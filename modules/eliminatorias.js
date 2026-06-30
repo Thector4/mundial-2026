@@ -1,99 +1,167 @@
 // ========================================== //
-// eliminatorias.js - CON NOMBRES EN INGLÉS  //
+// eliminatorias.js - CON MAPEO DE IDs API   //
 // ========================================== //
 
 // ========================================== //
-// DATOS OFICIALES DE LOS CRUCES             //
+// CRUCES DE 16AVOS (oficiales)              //
 // ========================================== //
 
-// 16avos de final (mitad izquierda - E1 a E8)
-const CRUCES_16AVOS_IZQ = [
-    { id: 'E1', local: '2º Group A', visitante: '2º Group B', fecha: '28 de junio', hora: '21:00' },
-    { id: 'E2', local: '1º Group C', visitante: '2º Group F', fecha: '29 de junio', hora: '19:00' },
-    { id: 'E3', local: '1º Group E', visitante: '3º Group A/B/C/D/F', fecha: '29 de junio', hora: '22:30' },
-    { id: 'E4', local: '1º Group F', visitante: '2º Group C', fecha: '30 de junio', hora: '03:00' },
-    { id: 'E5', local: '1º Group A', visitante: '3º Group C/E/F/H/I', fecha: '1 de julio', hora: '03:00' },
-    { id: 'E6', local: '1º Group L', visitante: '3º Group E/H/I/J/K', fecha: '1 de julio', hora: '18:00' },
-    { id: 'E7', local: '1º Group G', visitante: '3º Group A/E/H/I/J', fecha: '1 de julio', hora: '22:00' },
-    { id: 'E8', local: '2º Group K', visitante: '2º Group L', fecha: '2 de julio', hora: '01:00' }
+const CRUCES_16AVOS = [
+    { id: 'P73', local: 'Sudáfrica', visitante: 'Canadá', fecha: '28 de junio', hora: '21:00' },
+    { id: 'P74', local: 'Alemania', visitante: 'Paraguay', fecha: '29 de junio', hora: '22:30' },
+    { id: 'P75', local: 'Países Bajos', visitante: 'Marruecos', fecha: '30 de junio', hora: '03:00' },
+    { id: 'P77', local: 'Francia', visitante: 'Suecia', fecha: '30 de junio', hora: '23:00' },
+    { id: 'P81', local: 'Estados Unidos', visitante: 'Bosnia', fecha: '2 de julio', hora: '02:00' },
+    { id: 'P82', local: 'Bélgica', visitante: 'Senegal', fecha: '1 de julio', hora: '22:00' },
+    { id: 'P83', local: 'Portugal', visitante: 'Croacia', fecha: '3 de julio', hora: '01:00' },
+    { id: 'P84', local: 'España', visitante: 'Austria', fecha: '2 de julio', hora: '21:00' },
+    { id: 'P76', local: 'Brasil', visitante: 'Japón', fecha: '29 de junio', hora: '19:00' },
+    { id: 'P78', local: 'Costa de Marfil', visitante: 'Noruega', fecha: '30 de junio', hora: '19:00' },
+    { id: 'P79', local: 'México', visitante: 'Ecuador', fecha: '1 de julio', hora: '03:00' },
+    { id: 'P80', local: 'Inglaterra', visitante: 'RD Congo', fecha: '1 de julio', hora: '18:00' },
+    { id: 'P85', local: 'Suiza', visitante: 'Argelia', fecha: '5 de julio', hora: '05:00' },
+    { id: 'P86', local: 'Argentina', visitante: 'Cabo Verde', fecha: '4 de julio', hora: '00:00' },
+    { id: 'P87', local: 'Colombia', visitante: 'Ghana', fecha: '4 de julio', hora: '03:30' },
+    { id: 'P88', local: 'Australia', visitante: 'Egipto', fecha: '3 de julio', hora: '20:00' }
 ];
 
-// 16avos de final (mitad derecha - E9 a E16)
-const CRUCES_16AVOS_DER = [
-    { id: 'E9', local: '2º Group E', visitante: '2º Group I', fecha: '30 de junio', hora: '19:00' },
-    { id: 'E10', local: '1º Group I', visitante: '3º Group C/D/F/G/H', fecha: '30 de junio', hora: '23:00' },
-    { id: 'E11', local: '1º Group D', visitante: '3º Group B/E/F/I/J', fecha: '2 de julio', hora: '02:00' },
-    { id: 'E12', local: '1º Group B', visitante: '3º Group E/F/G/I/J', fecha: '2 de julio', hora: '05:00' },
-    { id: 'E13', local: '1º Group H', visitante: '2º Group J', fecha: '2 de julio', hora: '21:00' },
-    { id: 'E14', local: '1º Group J', visitante: '2º Group H', fecha: '3 de julio', hora: '00:00' },
-    { id: 'E15', local: '1º Group K', visitante: '3º Group D/E/I/J/L', fecha: '3 de julio', hora: '03:30' },
-    { id: 'E16', local: '2º Group D', visitante: '2º Group G', fecha: '3 de julio', hora: '20:00' }
-];
+// ========================================== //
+// OCTAVOS                                    //
+// ========================================== //
 
-// Octavos de final (A a H)
 const CRUCES_OCTAVOS = [
-    { id: 'A', local: 'Ganador E1', visitante: 'Ganador E3', fecha: '4 de julio', hora: '19:00' },
-    { id: 'B', local: 'Ganador E2', visitante: 'Ganador E4', fecha: '4 de julio', hora: '23:00' },
-    { id: 'C', local: 'Ganador E5', visitante: 'Ganador E6', fecha: '5 de julio', hora: '22:00' },
-    { id: 'D', local: 'Ganador E7', visitante: 'Ganador E8', fecha: '6 de julio', hora: '02:00' },
-    { id: 'E', local: 'Ganador E9', visitante: 'Ganador E10', fecha: '6 de julio', hora: '21:00' },
-    { id: 'F', local: 'Ganador E11', visitante: 'Ganador E12', fecha: '7 de julio', hora: '02:00' },
-    { id: 'G', local: 'Ganador E13', visitante: 'Ganador E14', fecha: '7 de julio', hora: '18:00' },
-    { id: 'H', local: 'Ganador E15', visitante: 'Ganador E16', fecha: '7 de julio', hora: '22:00' }
+    { id: 'P89', local: 'Canadá', visitante: 'Ganador P75', fecha: '4 de julio', hora: '23:00' },
+    { id: 'P90', local: 'Ganador P74', visitante: 'Ganador P77', fecha: '4 de julio', hora: '19:00' },
+    { id: 'P91', local: 'Brasil', visitante: 'Ganador P78', fecha: '5 de julio', hora: '22:00' },
+    { id: 'P92', local: 'Ganador P79', visitante: 'Ganador P80', fecha: '5 de julio', hora: '02:00' },
+    { id: 'P93', local: 'Ganador P83', visitante: 'Ganador P84', fecha: '6 de julio', hora: '21:00' },
+    { id: 'P94', local: 'Ganador P81', visitante: 'Ganador P82', fecha: '6 de julio', hora: '02:00' },
+    { id: 'P95', local: 'Ganador P86', visitante: 'Ganador P88', fecha: '7 de julio', hora: '22:00' },
+    { id: 'P96', local: 'Ganador P85', visitante: 'Ganador P87', fecha: '7 de julio', hora: '18:00' }
 ];
 
-// Cuartos de final (I a L)
+// ========================================== //
+// CUARTOS                                    //
+// ========================================== //
+
 const CRUCES_CUARTOS = [
-    { id: 'I', local: 'Ganador A', visitante: 'Ganador B', fecha: '9 de julio', hora: '22:00' },
-    { id: 'J', local: 'Ganador C', visitante: 'Ganador D', fecha: '10 de julio', hora: '21:00' },
-    { id: 'K', local: 'Ganador E', visitante: 'Ganador F', fecha: '11 de julio', hora: '23:00' },
-    { id: 'L', local: 'Ganador G', visitante: 'Ganador H', fecha: '11 de julio', hora: '03:00' }
+    { id: 'P97', local: 'Ganador P89', visitante: 'Ganador P90', fecha: '9 de julio', hora: '22:00' },
+    { id: 'P98', local: 'Ganador P93', visitante: 'Ganador P94', fecha: '10 de julio', hora: '21:00' },
+    { id: 'P99', local: 'Ganador P91', visitante: 'Ganador P92', fecha: '11 de julio', hora: '23:00' },
+    { id: 'P100', local: 'Ganador P95', visitante: 'Ganador P96', fecha: '11 de julio', hora: '03:00' }
 ];
 
-// Semifinales (M y N)
+// ========================================== //
+// SEMIFINALES                                //
+// ========================================== //
+
 const CRUCES_SEMIFINALES = [
-    { id: 'M', local: 'Ganador I', visitante: 'Ganador J', fecha: '14 de julio', hora: '21:00' },
-    { id: 'N', local: 'Ganador K', visitante: 'Ganador L', fecha: '15 de julio', hora: '21:00' }
+    { id: 'P101', local: 'Ganador P97', visitante: 'Ganador P98', fecha: '14 de julio', hora: '21:00' },
+    { id: 'P102', local: 'Ganador P99', visitante: 'Ganador P100', fecha: '15 de julio', hora: '21:00' }
 ];
 
-// Final
+// ========================================== //
+// FINAL                                      //
+// ========================================== //
+
 const FINAL = {
-    id: 'FINAL',
-    local: 'Ganador M',
-    visitante: 'Ganador N',
+    id: 'P104',
+    local: 'Ganador P101',
+    visitante: 'Ganador P102',
     fecha: '19 de julio',
     hora: '21:00'
 };
 
 // ========================================== //
-// MAPA DE RELACIONES (quién avanza a qué)   //
+// AVANZAN - MAPEO DE CRUCES                 //
 // ========================================== //
 
 const AVANZAN = {
-    'E1': 'A', 'E3': 'A',
-    'E2': 'B', 'E4': 'B',
-    'E5': 'C', 'E6': 'C',
-    'E7': 'D', 'E8': 'D',
-    'E9': 'E', 'E10': 'E',
-    'E11': 'F', 'E12': 'F',
-    'E13': 'G', 'E14': 'G',
-    'E15': 'H', 'E16': 'H',
-    'A': 'I', 'B': 'I',
-    'C': 'J', 'D': 'J',
-    'E': 'K', 'F': 'K',
-    'G': 'L', 'H': 'L',
-    'I': 'M', 'J': 'M',
-    'K': 'N', 'L': 'N',
-    'M': 'FINAL', 'N': 'FINAL'
+    // 16avos → Octavos
+    'P73': 'P89',
+    'P75': 'P89',
+    'P74': 'P90',
+    'P77': 'P90',
+    'P83': 'P93',
+    'P84': 'P93',
+    'P81': 'P94',
+    'P82': 'P94',
+    'P76': 'P91',
+    'P78': 'P91',
+    'P79': 'P92',
+    'P80': 'P92',
+    'P86': 'P95',
+    'P88': 'P95',
+    'P85': 'P96',
+    'P87': 'P96',
+
+    // Octavos → Cuartos
+    'P89': 'P97',
+    'P90': 'P97',
+    'P93': 'P98',
+    'P94': 'P98',
+    'P91': 'P99',
+    'P92': 'P99',
+    'P95': 'P100',
+    'P96': 'P100',
+
+    // Cuartos → Semifinales
+    'P97': 'P101',
+    'P98': 'P101',
+    'P99': 'P102',
+    'P100': 'P102',
+
+    // Semifinales → Final
+    'P101': 'P104',
+    'P102': 'P104'
 };
 
 // ========================================== //
-// GENERAR EL ESTADO INICIAL                 //
+// MAPEO DE IDs DE LA API A IDs DEL ÁRBOL    //
+// ========================================== //
+
+const MAP_API_TO_ARBOL = {
+    537417: 'P73', // South Africa vs Canada - FINISHED ✓
+    537415: 'P74', // Germany vs Paraguay
+    537418: 'P75', // Netherlands vs Morocco
+    537416: 'P77', // France vs Sweden
+    537421: 'P81', // United States vs Bosnia-Herzegovina
+    537422: 'P82', // Belgium vs Senegal
+    537419: 'P83', // Portugal vs Croatia
+    537420: 'P84', // Spain vs Austria
+    537423: 'P76', // Brazil vs Japan
+    537424: 'P78', // Ivory Coast vs Norway
+    537425: 'P79', // Mexico vs Ecuador
+    537426: 'P80', // England vs Congo DR
+    537429: 'P85', // Switzerland vs Algeria
+    537427: 'P86', // Argentina vs Cape Verde Islands
+    537430: 'P87', // Colombia vs Ghana
+    537428: 'P88'  // Australia vs Egypt
+};
+
+// ========================================== //
+// MEJORES TERCEROS                          //
+// ========================================== //
+
+const MEJORES_TERCEROS = {
+    'K': 'RD Congo',
+    'F': 'Suecia',
+    'L': 'Ghana',
+    'E': 'Ecuador',
+    'B': 'Bosnia',
+    'J': 'Argelia',
+    'D': 'Paraguay',
+    'I': 'Senegal'
+};
+
+let estadoPartidos = null;
+
+// ========================================== //
+// GENERAR ESTADO INICIAL                    //
 // ========================================== //
 
 function generarEstadoInicial() {
-    const todos = [...CRUCES_16AVOS_IZQ, ...CRUCES_16AVOS_DER, ...CRUCES_OCTAVOS, ...CRUCES_CUARTOS, ...CRUCES_SEMIFINALES, FINAL];
-    
+    const todos = [...CRUCES_16AVOS, ...CRUCES_OCTAVOS, ...CRUCES_CUARTOS, ...CRUCES_SEMIFINALES, FINAL];
     const estado = {};
     todos.forEach(p => {
         estado[p.id] = {
@@ -110,135 +178,142 @@ function generarEstadoInicial() {
 }
 
 // ========================================== //
-// ASIGNAR EQUIPOS REALES A 16AVOS           //
+// ASIGNAR EQUIPOS REALES                    //
 // ========================================== //
 
 function asignarEquiposReales(estado, standings) {
-    // --- 1. Extraer clasificados por grupo (usando nombres en inglés) ---
-    const primeros = {};
-    const segundos = {};
-    const terceros = [];
+    console.log('📊 Asignando equipos reales a 16avos...');
 
-    standings.forEach(standing => {
-        // La API devuelve el nombre del grupo en inglés: "Group A", "Group B", etc.
-        const groupName = standing.group || 'Group';
-        const table = standing.table || [];
-        const sorted = [...table].sort((a, b) => {
-            if (b.points !== a.points) return b.points - a.points;
-            return (b.goalDifference || 0) - (a.goalDifference || 0);
-        });
+    const asignaciones = {
+        'P73': { local: 'Sudáfrica', visitante: 'Canadá' },
+        'P74': { local: 'Alemania', visitante: 'Paraguay' },
+        'P75': { local: 'Países Bajos', visitante: 'Marruecos' },
+        'P77': { local: 'Francia', visitante: 'Suecia' },
+        'P81': { local: 'Estados Unidos', visitante: 'Bosnia' },
+        'P82': { local: 'Bélgica', visitante: 'Senegal' },
+        'P83': { local: 'Portugal', visitante: 'Croacia' },
+        'P84': { local: 'España', visitante: 'Austria' },
+        'P76': { local: 'Brasil', visitante: 'Japón' },
+        'P78': { local: 'Costa de Marfil', visitante: 'Noruega' },
+        'P79': { local: 'México', visitante: 'Ecuador' },
+        'P80': { local: 'Inglaterra', visitante: 'RD Congo' },
+        'P85': { local: 'Suiza', visitante: 'Argelia' },
+        'P86': { local: 'Argentina', visitante: 'Cabo Verde' },
+        'P87': { local: 'Colombia', visitante: 'Ghana' },
+        'P88': { local: 'Australia', visitante: 'Egipto' }
+    };
 
-        console.log('📊 Procesando grupo:', groupName);
-
-        if (sorted.length >= 1) {
-            primeros[groupName] = sorted[0];
-        }
-        if (sorted.length >= 2) {
-            segundos[groupName] = sorted[1];
-        }
-        if (sorted.length >= 3) {
-            terceros.push({ ...sorted[2], group: groupName });
+    Object.keys(asignaciones).forEach(id => {
+        if (estado[id]) {
+            estado[id].localReal = asignaciones[id].local;
+            estado[id].visitanteReal = asignaciones[id].visitante;
         }
     });
 
-    // --- 2. Ordenar terceros ---
-    const mejoresTerceros = terceros
-        .sort((a, b) => {
-            if (b.points !== a.points) return b.points - a.points;
-            return (b.goalDifference || 0) - (a.goalDifference || 0);
-        })
-        .slice(0, 8);
+    const traducciones = {
+        'South Africa': 'Sudáfrica',
+        'Canada': 'Canadá',
+        'Brazil': 'Brasil',
+        'Japan': 'Japón',
+        'Germany': 'Alemania',
+        'Paraguay': 'Paraguay',
+        'Netherlands': 'Países Bajos',
+        'Morocco': 'Marruecos',
+        'Ivory Coast': 'Costa de Marfil',
+        'Norway': 'Noruega',
+        'France': 'Francia',
+        'Sweden': 'Suecia',
+        'Mexico': 'México',
+        'Ecuador': 'Ecuador',
+        'England': 'Inglaterra',
+        'Congo DR': 'RD Congo',
+        'Belgium': 'Bélgica',
+        'Senegal': 'Senegal',
+        'United States': 'Estados Unidos',
+        'Bosnia-Herzegovina': 'Bosnia',
+        'Spain': 'España',
+        'Austria': 'Austria',
+        'Portugal': 'Portugal',
+        'Croatia': 'Croacia',
+        'Australia': 'Australia',
+        'Egypt': 'Egipto',
+        'Argentina': 'Argentina',
+        'Cape Verde Islands': 'Cabo Verde',
+        'Colombia': 'Colombia',
+        'Ghana': 'Ghana',
+        'Switzerland': 'Suiza',
+        'Algeria': 'Argelia'
+    };
 
-    const tercerosMap = {};
-    mejoresTerceros.forEach((t) => {
-        tercerosMap[t.group] = t;
+    Object.keys(estado).forEach(id => {
+        if (estado[id] && id.startsWith('P')) {
+            const p = estado[id];
+            if (p.localReal && traducciones[p.localReal]) p.localReal = traducciones[p.localReal];
+            if (p.visitanteReal && traducciones[p.visitanteReal]) p.visitanteReal = traducciones[p.visitanteReal];
+        }
     });
 
-    function getTeamName(entry) {
-        return entry?.team?.name || 'POR DEFINIR';
-    }
-
-    function getMejorTerceroDe(gruposPosibles) {
-        for (const grupo of gruposPosibles) {
-            if (tercerosMap[grupo]) {
-                return getTeamName(tercerosMap[grupo]);
-            }
-        }
-        return 'POR DEFINIR';
-    }
-
-    // --- 3. Asignar equipos a cada cruce ---
-    // Los nombres de los grupos están en inglés porque la API los devuelve así
-
-    // E1: 2º Grupo A vs 2º Grupo B
-    estado['E1'].localReal = getTeamName(segundos['Group A']);
-    estado['E1'].visitanteReal = getTeamName(segundos['Group B']);
-
-    // E2: 1º Grupo C vs 2º Grupo F
-    estado['E2'].localReal = getTeamName(primeros['Group C']);
-    estado['E2'].visitanteReal = getTeamName(segundos['Group F']);
-
-    // E3: 1º Grupo E vs 3º Grupo A/B/C/D/F
-    estado['E3'].localReal = getTeamName(primeros['Group E']);
-    estado['E3'].visitanteReal = getMejorTerceroDe(['Group A', 'Group B', 'Group C', 'Group D', 'Group F']);
-
-    // E4: 1º Grupo F vs 2º Grupo C
-    estado['E4'].localReal = getTeamName(primeros['Group F']);
-    estado['E4'].visitanteReal = getTeamName(segundos['Group C']);
-
-    // E5: 1º Grupo A vs 3º Grupo C/E/F/H/I
-    estado['E5'].localReal = getTeamName(primeros['Group A']);
-    estado['E5'].visitanteReal = getMejorTerceroDe(['Group C', 'Group E', 'Group F', 'Group H', 'Group I']);
-
-    // E6: 1º Grupo L vs 3º Grupo E/H/I/J/K
-    estado['E6'].localReal = getTeamName(primeros['Group L']);
-    estado['E6'].visitanteReal = getMejorTerceroDe(['Group E', 'Group H', 'Group I', 'Group J', 'Group K']);
-
-    // E7: 1º Grupo G vs 3º Grupo A/E/H/I/J
-    estado['E7'].localReal = getTeamName(primeros['Group G']);
-    estado['E7'].visitanteReal = getMejorTerceroDe(['Group A', 'Group E', 'Group H', 'Group I', 'Group J']);
-
-    // E8: 2º Grupo K vs 2º Grupo L
-    estado['E8'].localReal = getTeamName(segundos['Group K']);
-    estado['E8'].visitanteReal = getTeamName(segundos['Group L']);
-
-    // E9: 2º Grupo E vs 2º Grupo I
-    estado['E9'].localReal = getTeamName(segundos['Group E']);
-    estado['E9'].visitanteReal = getTeamName(segundos['Group I']);
-
-    // E10: 1º Grupo I vs 3º Grupo C/D/F/G/H
-    estado['E10'].localReal = getTeamName(primeros['Group I']);
-    estado['E10'].visitanteReal = getMejorTerceroDe(['Group C', 'Group D', 'Group F', 'Group G', 'Group H']);
-
-    // E11: 1º Grupo D vs 3º Grupo B/E/F/I/J
-    estado['E11'].localReal = getTeamName(primeros['Group D']);
-    estado['E11'].visitanteReal = getMejorTerceroDe(['Group B', 'Group E', 'Group F', 'Group I', 'Group J']);
-
-    // E12: 1º Grupo B vs 3º Grupo E/F/G/I/J
-    estado['E12'].localReal = getTeamName(primeros['Group B']);
-    estado['E12'].visitanteReal = getMejorTerceroDe(['Group E', 'Group F', 'Group G', 'Group I', 'Group J']);
-
-    // E13: 1º Grupo H vs 2º Grupo J
-    estado['E13'].localReal = getTeamName(primeros['Group H']);
-    estado['E13'].visitanteReal = getTeamName(segundos['Group J']);
-
-    // E14: 1º Grupo J vs 2º Grupo H
-    estado['E14'].localReal = getTeamName(primeros['Group J']);
-    estado['E14'].visitanteReal = getTeamName(segundos['Group H']);
-
-    // E15: 1º Grupo K vs 3º Grupo D/E/I/J/L
-    estado['E15'].localReal = getTeamName(primeros['Group K']);
-    estado['E15'].visitanteReal = getMejorTerceroDe(['Group D', 'Group E', 'Group I', 'Group J', 'Group L']);
-
-    // E16: 2º Grupo D vs 2º Grupo G
-    estado['E16'].localReal = getTeamName(segundos['Group D']);
-    estado['E16'].visitanteReal = getTeamName(segundos['Group G']);
-
+    console.log('✅ Cruces de 16avos asignados');
     return estado;
 }
 
 // ========================================== //
-// FUNCIÓN PARA PINTAR EL ÁRBOL              //
+// ACTUALIZAR RESULTADOS DESDE API           //
+// ========================================== //
+
+function actualizarResultados(estado, matches) {
+    console.log('📊 Actualizando resultados desde API...');
+    
+    let resultadosEncontrados = 0;
+
+    matches.forEach(match => {
+        const matchId = match.id;
+        const arbolId = MAP_API_TO_ARBOL[matchId];
+        
+        if (arbolId && estado[arbolId] && match.status === 'FINISHED') {
+            const p = estado[arbolId];
+            
+            p.marcadorLocal = match.score.fullTime.home;
+            p.marcadorVisitante = match.score.fullTime.away;
+            p.estado = 'finalizado';
+            
+            if (match.score.fullTime.home > match.score.fullTime.away) {
+                p.ganador = 'local';
+            } else if (match.score.fullTime.away > match.score.fullTime.home) {
+                p.ganador = 'visitante';
+            }
+            
+            resultadosEncontrados++;
+            console.log(`✅ ${arbolId}: ${p.localReal} ${p.marcadorLocal}-${p.marcadorVisitante} ${p.visitanteReal}`);
+            
+            if (p.ganador) {
+                const siguienteId = AVANZAN[arbolId];
+                if (siguienteId && estado[siguienteId]) {
+                    const ganadorNombre = p.ganador === 'local' ? p.localReal : p.visitanteReal;
+                    const siguiente = estado[siguienteId];
+                    
+                    if (siguiente.localReal === `Ganador ${arbolId}` || 
+                        siguiente.localReal === `Ganador ${p.id}` ||
+                        siguiente.localReal === 'Ganador ' + arbolId) {
+                        siguiente.localReal = ganadorNombre;
+                        console.log(`   ➡️ Propagando a ${siguienteId}: ${ganadorNombre}`);
+                    } else if (siguiente.visitanteReal === `Ganador ${arbolId}` || 
+                               siguiente.visitanteReal === `Ganador ${p.id}` ||
+                               siguiente.visitanteReal === 'Ganador ' + arbolId) {
+                        siguiente.visitanteReal = ganadorNombre;
+                        console.log(`   ➡️ Propagando a ${siguienteId}: ${ganadorNombre}`);
+                    }
+                }
+            }
+        }
+    });
+
+    console.log(`✅ Resultados actualizados: ${resultadosEncontrados} partidos`);
+    return estado;
+}
+
+// ========================================== //
+// RENDERIZAR ÁRBOL - ORDENADO EN PAREJAS    //
 // ========================================== //
 
 function renderEliminatoriasTree(estado) {
@@ -251,24 +326,23 @@ function renderEliminatoriasTree(estado) {
     function partidoHTML(partido, esFinal = false) {
         const local = partido.localReal || partido.local || 'POR DEFINIR';
         const visitante = partido.visitanteReal || partido.visitante || 'POR DEFINIR';
-        // TRADUCIR LOS NOMBRES DE LOS EQUIPOS AL ESPAÑOL
         const localNombre = traducirNombre(local);
         const visitanteNombre = traducirNombre(visitante);
-        const localFlag = getFlag(local);
-        const visitanteFlag = getFlag(visitante);
+        const localFlag = getFlag(localNombre);
+        const visitanteFlag = getFlag(visitanteNombre);
         
         const esGanadorLocal = partido.ganador === 'local';
         const esGanadorVisitante = partido.ganador === 'visitante';
         
         let resultado = '';
-        if (partido.estado === 'finalizado' || partido.estado === 'en_curso') {
-            resultado = `<span class="tree-score">${partido.marcadorLocal ?? '?'} - ${partido.marcadorVisitante ?? '?'}</span>`;
+        if (partido.estado === 'finalizado' && partido.ganador) {
+            resultado = `<span class="tree-score">${partido.marcadorLocal} - ${partido.marcadorVisitante}</span>`;
         } else {
             resultado = `<span class="tree-vs">VS</span>`;
         }
 
         const claseExtra = esFinal ? ' tree-final-partido' : '';
-        const estadoClase = partido.estado === 'finalizado' ? 'finalizado' : (partido.estado === 'en_curso' ? 'en-curso' : '');
+        const estadoClase = partido.estado === 'finalizado' ? 'finalizado' : '';
 
         return `
             <div class="tree-partido ${estadoClase}${claseExtra}" data-id="${partido.id}">
@@ -284,97 +358,121 @@ function renderEliminatoriasTree(estado) {
         `;
     }
 
-    // --- CONSTRUIR EL ÁRBOL ---
-    let html = `<div class="tree-oficial">`;
+    // ========================================== //
+    // IZQUIERDA: P73, P74, P75, P77, P81, P82, P83, P84
+    // ========================================== //
+    const idsIzquierda = ['P73', 'P74', 'P75', 'P77', 'P81', 'P82', 'P83', 'P84'];
+    
+    // ========================================== //
+    // DERECHA: P76, P78, P79, P80, P85, P86, P87, P88
+    // ========================================== //
+    const idsDerecha = ['P76', 'P78', 'P79', 'P80', 'P85', 'P86', 'P87', 'P88'];
 
-    // --- FILA 1: 16avos (E1-E8 a la izquierda, E9-E16 a la derecha) ---
+    // Parejas para la izquierda
+    const parejasIzquierda = [
+        ['P73', 'P75'], // → P89
+        ['P74', 'P77'], // → P90
+        ['P83', 'P84'], // → P93
+        ['P81', 'P82']  // → P94
+    ];
+
+    // Parejas para la derecha
+    const parejasDerecha = [
+        ['P76', 'P78'], // → P91
+        ['P79', 'P80'], // → P92
+        ['P86', 'P88'], // → P95
+        ['P85', 'P87']  // → P96
+    ];
+
+    let html = `<div class="tree-oficial">`;
     html += `<div class="tree-fila">`;
     
-    // Columna izquierda (E1-E8)
+    // Columna 1: 16avos (IZQUIERDA)
     html += `<div class="tree-col">`;
-    CRUCES_16AVOS_IZQ.forEach(c => {
-        const p = estado[c.id];
+    parejasIzquierda.forEach(pareja => {
+        pareja.forEach(id => {
+            const p = estado[id];
+            if (p) html += partidoHTML(p);
+        });
+    });
+    html += `</div>`;
+
+    // Columna 2: Octavos (P89, P90, P93, P94)
+    html += `<div class="tree-col tree-col-central">`;
+    ['P89', 'P90', 'P93', 'P94'].forEach(id => {
+        const p = estado[id];
         if (p) html += partidoHTML(p);
     });
     html += `</div>`;
 
-    // Columna central - Octavos (A-D)
+    // Columna 3: Cuartos (P97, P98)
     html += `<div class="tree-col tree-col-central">`;
-    CRUCES_OCTAVOS.slice(0, 4).forEach(c => {
-        const p = estado[c.id];
+    ['P97', 'P98'].forEach(id => {
+        const p = estado[id];
         if (p) html += partidoHTML(p);
     });
     html += `</div>`;
 
-    // Columna central - Cuartos (I-J)
+    // Columna 4: Semifinal 1 (P101)
     html += `<div class="tree-col tree-col-central">`;
-    CRUCES_CUARTOS.slice(0, 2).forEach(c => {
-        const p = estado[c.id];
-        if (p) html += partidoHTML(p);
-    });
+    const s1 = estado['P101'];
+    if (s1) html += partidoHTML(s1);
     html += `</div>`;
 
-    // Columna central - Semifinal (M)
-    html += `<div class="tree-col tree-col-central">`;
-    const m = estado['M'];
-    if (m) html += partidoHTML(m);
-    html += `</div>`;
-
-    // Columna central - FINAL
+    // Columna 5: Final (P104)
     html += `<div class="tree-col tree-col-final">`;
-    const final = estado['FINAL'];
+    const final = estado['P104'];
     if (final) html += partidoHTML(final, true);
     html += `</div>`;
 
-    // Columna central - Semifinal (N)
+    // Columna 6: Semifinal 2 (P102)
     html += `<div class="tree-col tree-col-central">`;
-    const n = estado['N'];
-    if (n) html += partidoHTML(n);
+    const s2 = estado['P102'];
+    if (s2) html += partidoHTML(s2);
     html += `</div>`;
 
-    // Columna central - Cuartos (K-L)
+    // Columna 7: Cuartos (P99, P100)
     html += `<div class="tree-col tree-col-central">`;
-    CRUCES_CUARTOS.slice(2, 4).forEach(c => {
-        const p = estado[c.id];
+    ['P99', 'P100'].forEach(id => {
+        const p = estado[id];
         if (p) html += partidoHTML(p);
     });
     html += `</div>`;
 
-    // Columna central - Octavos (E-H)
+    // Columna 8: Octavos (P91, P92, P95, P96)
     html += `<div class="tree-col tree-col-central">`;
-    CRUCES_OCTAVOS.slice(4, 8).forEach(c => {
-        const p = estado[c.id];
+    ['P91', 'P92', 'P95', 'P96'].forEach(id => {
+        const p = estado[id];
         if (p) html += partidoHTML(p);
     });
     html += `</div>`;
 
-    // Columna derecha (E9-E16)
+    // Columna 9: 16avos (DERECHA)
     html += `<div class="tree-col">`;
-    CRUCES_16AVOS_DER.forEach(c => {
-        const p = estado[c.id];
-        if (p) html += partidoHTML(p);
+    parejasDerecha.forEach(pareja => {
+        pareja.forEach(id => {
+            const p = estado[id];
+            if (p) html += partidoHTML(p);
+        });
     });
     html += `</div>`;
 
-    html += `</div>`; // fin tree-fila
-
-    html += `</div>`; // fin tree-oficial
+    html += `</div>`;
+    html += `</div>`;
 
     container.innerHTML = html;
 }
 
 // ========================================== //
-// FUNCIÓN PARA CARGAR ELIMINATORIAS          //
+// CARGAR ELIMINATORIAS                      //
 // ========================================== //
-
-let estadoPartidos = null;
 
 async function loadEliminatorias() {
     const container = document.getElementById('eliminatoriasContainer');
     container.innerHTML = `<div class="status">⏳ Generando árbol de eliminatorias...</div>`;
 
     try {
-        const data = await fetchAPI('/clasificacion'); 
+        const data = await fetchAPI('/clasificacion');
         
         if (data.error || !data.standings) {
             throw new Error('No se pudieron obtener los datos de clasificación');
@@ -384,8 +482,16 @@ async function loadEliminatorias() {
             estadoPartidos = generarEstadoInicial();
         }
 
-        // Asignar equipos reales a los 16avos
         estadoPartidos = asignarEquiposReales(estadoPartidos, data.standings);
+
+        try {
+            const matchesData = await fetchAPI('/partidos');
+            if (matchesData && matchesData.matches) {
+                estadoPartidos = actualizarResultados(estadoPartidos, matchesData.matches);
+            }
+        } catch (e) {
+            console.warn('⚠️ No se pudieron cargar los resultados de partidos:', e);
+        }
 
         renderEliminatoriasTree(estadoPartidos);
 
@@ -400,12 +506,14 @@ async function loadEliminatorias() {
         `;
     }
     window.estadoPartidosCompartido = estadoPartidos;
+    console.log('📤 Datos de eliminatorias compartidos con el simulador');
 }
 
 // ========================================== //
-// COMPARTIR DATOS CON EL SIMULADOR          //
+// EXPORTAR FUNCIONES PARA USO GLOBAL        //
 // ========================================== //
 
 window.asignarEquiposReales = asignarEquiposReales;
 window.generarEstadoInicial = generarEstadoInicial;
 window.estadoPartidosCompartido = null;
+window.loadEliminatorias = loadEliminatorias;
